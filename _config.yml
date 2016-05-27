@@ -1,9 +1,9 @@
 # Site settings
-title: Liang Ke Jin
-description: Liang Ke Jin
+title: Jian Yue Liu
+description: My personal blog marking steps studying Android!
 favicon: /assets/img/avatar.JPG
 baseurl:
-url: https://liungkejin.github.io
+url: https://liujianyue.github.io
 rss_url:
 
 # Build settings
@@ -11,7 +11,7 @@ rss_url:
 highlight: true
 #highlighter: rouge
 
-timezone: Asia/Shanghai
+timezone: Asia/Beijing
 
 markdown: kramdown
 kramdown:
