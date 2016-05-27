@@ -1,10 +1,11 @@
 ---
-layout: post
-title: 关于返回 Null 值的问题
-description: 我感觉返回null值是有问题的，它大量的被使用在一个方法有不同的返回类型时。返回一个Null对象在某些情况下是合适的，但并不适合当你需要向客户端传送两种不同的东西的情形。
-keywords: java, Null, 函数
-categories : [java, reprints]
-tags : [java, 技巧]
+---
+layout: post_layout
+title: 开始篇
+time: 2016年03月05日 星期五
+location: 上海
+pulished: true
+excerpt_separator: "```"
 ---
 
 原文： [Returning Null](http://zdsbs.blogspot.com/2009/08/returning-null.html)
@@ -72,3 +73,7 @@ tags : [java, 技巧]
 现在我们的两个实体能够相互通信，我们定义了它们通信的方式。
 我喜欢 Misko 的重构，我只是更进了一步。
 好坏可以再讨论，但我想，如果你遇到了这种需要返回两种情况的方法时，IoC 是你应该的选择。
+
+```bash
+echo "你好, Github Pages!";
+```
