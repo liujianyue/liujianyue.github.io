@@ -256,3 +256,6 @@ Markdown 语法:
 	&lt;/blockquote&gt;
 	</code></pre>
 
+```bash
+echo "你好, Github Pages!";
+```
