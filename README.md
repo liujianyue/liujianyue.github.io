@@ -1,5 +1,5 @@
-# Kejin
+# jianyue
 
-> 自己选的路，跪着也要走下去
+> The harder the more fortunate!
 
 ![Blog](/assets/img/blog.png)
