@@ -2,4 +2,4 @@
 
 > The harder the more fortunate!
 
-![Blog](/assets/img/blog.png)
+![Blog](/assets/img/easy-pure-blog.png)
