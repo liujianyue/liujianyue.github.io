@@ -1,8 +1,8 @@
 ---
 layout: post_layout
-title: 开始篇
-time: 2016年03月05日 星期五
-location: 上海
+title: 关于返回 Null 值的问题
+time: 2015年09月18日
+location: 北京
 pulished: true
 excerpt_separator: "```"
 ---
@@ -73,6 +73,3 @@ excerpt_separator: "```"
 我喜欢 Misko 的重构，我只是更进了一步。
 好坏可以再讨论，但我想，如果你遇到了这种需要返回两种情况的方法时，IoC 是你应该的选择。
 
-```bash
-echo "你好, Github Pages!";
-```

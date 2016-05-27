@@ -1,6 +1,7 @@
 ---
 layout: post_layout
 title: markdown 快速入门
+time: 2015年07月10日
 location: 北京
 pulished: true
 excerpt_separator: "```"

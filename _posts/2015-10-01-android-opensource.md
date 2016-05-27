@@ -1,11 +1,11 @@
 ---
-layout:     post
-title:      值得推荐的android开源框架
-keywords:   Android, openSource
-category:   Android
-tags:		[android, 开源]
+layout: post_layout
+title: 值得推荐的android开源框架
+time: 2010年10月01日
+location: 北京
+pulished: true
+excerpt_separator: "```"
 ---
- 
 ## 1、volley  ##
 
 项目地址[https://github.com/smanikandan14/Volley-demo](https://github.com/smanikandan14/Volley-demo)

@@ -1,9 +1,10 @@
 ---
-layout:     post
-title:      Android UI线程和子线程、Service通信
-keywords:   [java, thread， Service]   
-category:   java
-tags:       [java, android]
+layout: post_layout
+title:  Android UI线程和子线程、Service通信
+time: 2015年07月19日
+location: 北京
+pulished: true
+excerpt_separator: "```"
 ---
 关于Service最基本的用法自然就是如何启动一个Service了，启动Service的方法和启动Activity很类似，都需要借助Intent来实现，下面我们就通过一个具体的例子来看一下。
 

@@ -1,9 +1,10 @@
 ---
-layout: post
-title:  java并发和多线程
-keywords: java, MultiThread
-categories : [java]
-tags : [java, 多线程]
+layout: post_layout
+title: java并发和多线程
+time: 2015年08月02日
+location: 北京
+pulished: true
+excerpt_separator: "```"
 ---
 注：本文的内容翻译自[http://tutorials.jenkov.com/java-concurrency/deadlock.html][1]
 
