@@ -18,9 +18,12 @@
             </header>
             {{ content }}
             {% include post_footer.html %}
+			<!-- Blog Comments -->
+			<div class="media">
+			  {% include comment.html %}
+			</div>
         </main>
-		{% include comment.html %} 
-        {% include footer.html %}
+		        {% include footer.html %}
     </body>
 
 </html>
