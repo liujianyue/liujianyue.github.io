@@ -4,7 +4,7 @@ title: 当我们打开网页时发生了什么
 time: 2010年10月11日
 location: 北京
 pulished: true
-excerpt_separator: "```"
+excerpt_separator: "到页面。"
 ---
 简单地来说，当我们在浏览器上输入URL的敲下回车的时候。
 

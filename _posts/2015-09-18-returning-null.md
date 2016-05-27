@@ -4,7 +4,7 @@ title: 关于返回 Null 值的问题
 time: 2015年09月18日
 location: 北京
 pulished: true
-excerpt_separator: "```"
+excerpt_separator: "问题。"
 ---
 
 原文： [Returning Null](http://zdsbs.blogspot.com/2009/08/returning-null.html)

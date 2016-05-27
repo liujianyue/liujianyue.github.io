@@ -4,7 +4,7 @@ title: java并发和多线程
 time: 2015年08月02日
 location: 北京
 pulished: true
-excerpt_separator: "```"
+excerpt_separator: "的子类"
 ---
 注：本文的内容翻译自[http://tutorials.jenkov.com/java-concurrency/deadlock.html][1]
 
