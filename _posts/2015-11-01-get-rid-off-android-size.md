@@ -1,4 +1,4 @@
-﻿---
+---
 layout: post_layout
 title: 还在为Android中各种尺寸发愁吗，Let's F** it!
 time: 2015年10月19日
