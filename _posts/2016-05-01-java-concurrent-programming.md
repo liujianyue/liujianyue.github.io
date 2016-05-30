@@ -57,6 +57,7 @@ synchronized 块是这样一个代码块，其中的代码必须获得对象 syn
        synchronized(test.class)   // class literal(类名称字面常量)
     }
 }
+
 在上例代码中methodA 和 methodB 都实现了对类的多控制，这两种方法实现的效果相同，不过笔者有一个疑问就是如果在methodB中将test.class 替换成obj.class obj为当前类实例，两者效果是否相同，有何区别。
 需要注意：
 A: synchronized static是某个类的范围，synchronized static cSync{}防止多个线程同时访问这个    类中的synchronized static 方法。它可以对类的所有对象实例起作用。
@@ -64,4 +65,4 @@ B: synchronized 是某实例的范围，synchronized isSync(){}防止多个线�
 C:synchronized methods(){} 与synchronized（this）{}之间没有什么区别，只是 synchronized methods(){} 便于阅读理解，而synchronized（this）{}可以更精确的控制冲突限制访问区域，有时候表现更高效率。
 D:synchronized关键字是不能继承的,我想这一点也是很值得注意的，继承时子类的覆盖方法必须显示定义成synchronized
 
-[下一篇：ThreadPoolExecutor 线程池 及其扩展]
+[下一篇：ThreadPoolExecutor 线程池 及其扩展](http://liujianyue.github.io/2016/05/01/java-concurrent-programming.html)
