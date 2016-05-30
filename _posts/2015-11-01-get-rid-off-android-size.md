@@ -10,9 +10,17 @@ excerpt_separator: "长乘以宽）"
 **笔者之所以决定总结这篇博文，是因为又一次晚上将将入睡之时突然惊醒，脑子中浮现出了Android，dp、sp、px等等一系列尺寸的东东(脑子潜意识回忆，怕忘记吧)，感觉很烦，（感觉有这种感受的小伙伴不止我一个），所以我决定把它记下来，供以后给自己和朋友参考。**
 
 ### 首先理解一下需要理解的概念哈
-> * 屏幕的大小(Screen size)： 屏幕对角线的物理尺寸（以inch为单位）
-> * 屏幕密度（Screen density）：每英寸上的像素个数。通常被称作多少 dpi（dots per inch）或多少 ppi（pixels per inch）
-> * 分辨率 屏幕上的物理像素个数（长乘以宽）
+**1.屏幕的大小(Screen size)**
+
+屏幕对角线的物理尺寸（以inch为单位）
+
+**2.屏幕密度（Screen density)**
+
+每英寸上的像素个数。通常被称作多少 dpi（dots per inch）或多少 ppi（pixels per inch）
+
+**3.分辨率(Resolution)**
+
+屏幕上的物理像素个数（长乘以宽）
 
 ### 开始学习尺寸
 
