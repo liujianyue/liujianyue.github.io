@@ -75,7 +75,9 @@ sp 转 px
 dp = scaledDensity*px;
 所以y = x * scaledDensity
 这里 scaledDensity 获取方式为getResources().getDisplayMetrics().scaledDensity。
-同时可以参考http://developer.android.com/reference/android/util/DisplayMetrics.html
+同时可以参考
+[官方解释](http://developer.android.com/reference/android/util/DisplayMetrics.html)
+
 
 
     
