@@ -1,6 +1,6 @@
 ---
 layout: post_layout
-title: 关于View的滑动和弹性滑动的总结和扩展
+title: View的滑动和弹性滑动的总结和扩展
 time: 2015年12月1日
 location: 北京
 pulished: true
