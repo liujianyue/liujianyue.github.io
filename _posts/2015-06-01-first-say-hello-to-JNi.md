@@ -1,10 +1,10 @@
-﻿---
+---
 layout: post_layout
 title: JNI 初学使用一般步骤
 time: 2015年6月01日
 location: 北京
 pulished: true
-excerpt_separator: ""
+excerpt_separator: "builder"
 ---
 
 > * 新建java文件，并在根目录执行javah -classpath .\bin\classses -d jni 包名.类名 生成 .h 文件；
