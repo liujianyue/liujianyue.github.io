@@ -44,6 +44,7 @@ excerpt_separator: "长乘以宽）"
 ### 开始他们之间的转换
 
 Android 大约将屏幕密度概括为 7 种：
+
 ```java
 
 dpi种类 ~xxdpi ~像素密度系数
