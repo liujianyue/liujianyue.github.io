@@ -7,7 +7,7 @@ pulished: true
 excerpt_separator: "长乘以宽）"
 ---
 
-笔者之所以决定总结这篇博文，是因为又一次晚上将将入睡之时突然惊醒，脑子中浮现出了Android，dp、sp、px等等一系列尺寸的东东(脑子潜意识回忆，怕忘记吧)，感觉很烦，（感觉有这种感受的小伙伴不止我一个），所以我决定把它记下来，供以后给自己和朋友参考。
+**笔者之所以决定总结这篇博文，是因为又一次晚上将将入睡之时突然惊醒，脑子中浮现出了Android，dp、sp、px等等一系列尺寸的东东(脑子潜意识回忆，怕忘记吧)，感觉很烦，（感觉有这种感受的小伙伴不止我一个），所以我决定把它记下来，供以后给自己和朋友参考。**
 
 ### 首先理解一下需要理解的概念哈
 > * 屏幕的大小(Screen size)： 屏幕对角线的物理尺寸（以inch为单位）
@@ -16,28 +16,28 @@ excerpt_separator: "长乘以宽）"
 
 ### 开始学习尺寸
 
-**dp（Density-independent Pixels)**
+**1.dp（Density-independent Pixels)**
 
 在不同大小、密度和分辨率的屏幕上的物理大小都近似相等的虚拟尺寸单位。
 约为 1/160 英寸（为什么是约为？稍后讲解）。
 
-**sp（Scale-independent Pixels)**
+**2.sp（Scale-independent Pixels)**
 
 基于首选字体大小的缩放像素。与 dp 类似，但是会根据用户的首选字体大小缩放。
 
-**pt（Points)**
+**3.(points)pt**
 
 1/72 英寸。
 
-**px（Pixels)**
+**4.px（Pixels)**
 
 这就是我们说的像素。
 
-**mm（Millimeters)**
+**5.（Millimeters) mm**
 
 毫米（没怎么用过）。
 
-**in（Inches)**
+**6.（Inches) in**
 
 英寸，约 2.539999918 厘米。
 
@@ -45,7 +45,7 @@ excerpt_separator: "长乘以宽）"
 
 Android 大约将屏幕密度概括为 7 种：
 
-```java
+```javascript
 
 dpi种类 ~xxdpi ~像素密度系数
 
