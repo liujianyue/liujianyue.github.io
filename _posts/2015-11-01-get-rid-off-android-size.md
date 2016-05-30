@@ -71,13 +71,13 @@ mGestureThreshold = (int) (GESTURE_THRESHOLD_DP * scale + 0.5f);
 ```
 sp 转 px
 
->1 dp = 1px = 0.00625in；
+>1 dp = 1px = 0.00625in
 dp = scaledDensity*px;
 所以y = x * scaledDensity
 这里 scaledDensity 获取方式为getResources().getDisplayMetrics().scaledDensity。
-同时可以参考
 
->[官方解释](http://developer.android.com/reference/android/util/DisplayMetrics.html)
+>同时可以参考
+[官方解释](http://developer.android.com/reference/android/util/DisplayMetrics.html)
 
 
 
