@@ -15,28 +15,28 @@ excerpt_separator: "学习尺寸"
 > * 分辨率 屏幕上的物理像素个数（长乘以宽）
 
 ### 开始学习尺寸
-> *  dp（Density-independent Pixels）
+##  dp（Density-independent Pixels）
 
 在不同大小、密度和分辨率的屏幕上的物理大小都近似相等的虚拟尺寸单位。
 约为 1/160 英寸（为什么是约为？稍后讲解）。
 
-> * sp（Scale-independent Pixels）
+## sp（Scale-independent Pixels）
 
 基于首选字体大小的缩放像素。与 dp 类似，但是会根据用户的首选字体大小缩放。
 
-> * pt（Points）
+## pt（Points）
 
 1/72 英寸。
 
-> * px（Pixels）
+## px（Pixels）
 
 这就是我们说的像素。
 
-> * mm（Millimeters）
+## mm（Millimeters）
 
 毫米（没怎么用过）。
 
-> * in（Inches）
+## in（Inches）
 
 英寸，约 2.539999918 厘米。
 
