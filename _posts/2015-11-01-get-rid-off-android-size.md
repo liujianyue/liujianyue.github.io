@@ -45,6 +45,7 @@ excerpt_separator: "长乘以宽）"
 
 Android 大约将屏幕密度概括为 7 种：
 ```java
+
 dpi种类 ~xxdpi ~像素密度系数
 
 ldpi(low) ~120dpi ~0.75
@@ -63,11 +64,14 @@ xxxhdpi(extra-extra-extra-high) ~640dpi ~4
 
 nodpi（全称是啥）所有屏幕都会适配
 ```
+
 但是需要注意，并非表示所有Android手机只有这几个屏幕密度，比如说屏幕密度也有445dpi的手机（xxhdpi），那么他在dp 到 px 转换时，以480dpi为参照，而不是445dpi。
+
 ```java
 像素密度（generalizedDensity） = px/dp*160
 像素密度系数（scaledDensity） = 像素密度/160 =px/dp
 ```
+
 **dp 到 px的转换代码（官方）：**
 
 ```java
@@ -81,13 +85,16 @@ mGestureThreshold = (int) (GESTURE_THRESHOLD_DP * scale + 0.5f);
 
 // Use mGestureThreshold as a distance in pixels...
 ```
+
 **sp 转 px**
+
 ```java
 1 dp = 1px = 0.00625in
 dp = scaledDensity*px;
 所以y = x * scaledDensity
 这里 scaledDensity 获取方式为getResources().getDisplayMetrics().scaledDensity。
 ```
+
 **同时可以参考**
 [官方解释](http://developer.android.com/reference/android/util/DisplayMetrics.html)
 
