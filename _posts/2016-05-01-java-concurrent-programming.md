@@ -56,7 +56,7 @@ synchronized 块是这样一个代码块，其中的代码必须获得对象 syn
     {
        synchronized(test.class)   // class literal(类名称字面常量)
     }
-}
+    }
 
 在上例代码中methodA 和 methodB 都实现了对类的多控制，这两种方法实现的效果相同，不过笔者有一个疑问就是如果在methodB中将test.class 替换成obj.class obj为当前类实例，两者效果是否相同，有何区别。
 需要注意：
