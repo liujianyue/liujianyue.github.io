@@ -15,6 +15,7 @@ excerpt_separator: "builder"
 (可能需要新建新的builder)
 
 参考如下文章，感谢作者：
+
 ### [Android开发之JNI(一)--HelloWorld及遇到的错误解析](http://blog.csdn.net/yangdev/article/details/41313533)
 
 ### [Android中JNI创建实例](http://blog.csdn.net/wikiday/article/details/42403953)
