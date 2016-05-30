@@ -4,7 +4,7 @@ title: JAVA 并发开发的一点总结
 time: 2015年12月25日
 location: 北京
 pulished: true
-excerpt_separator: "Syntax"
+excerpt_separator: "going on"
 ---
 在公司项目最近逐渐的少了，（项目少了，公司不景气了）但是还是每天坚持阅读其他大神们的博客文章，以及一些高质量的源码，由于本人的工作比较接近Android frameworks 层的东东，所以对源码的阅读总是会带着愉悦的心情来阅读。最近心血来潮，决定总结一篇关于java并发开发的一点知识，恕在下愚钝，能力有限，写出的博客质量有待提高，主要还是供自己理解和运用，如果哪位小伙伴能够指点一二，不胜感激。
 JAVA 并发操作，我目前遇到的可能有以下几种方式：
@@ -19,7 +19,7 @@ JAVA 并发操作，我目前遇到的可能有以下几种方式：
  8. Collections.synchronizedList 等使用；
  9. Object 对象自带的 wait()、notify()、notifyAll() 的使用；
  10. blockingquene 的使用；
-
+going on
 ## 一， synchronized 关键字
 synchronized 关键字，代表这个方法加锁,相当于不管哪一个线程A每次运行到这个方法时,都要检查有没有其它正在用这个方法的线程B（或者C D等）,有的话要等正在使用这个方法的线程B（或者C D）运行完这个方法后再运行此线程A,没有的话,直接运行它包括两种用法：synchronized 方法和 synchronized 块。
 ### synchronized 方法
