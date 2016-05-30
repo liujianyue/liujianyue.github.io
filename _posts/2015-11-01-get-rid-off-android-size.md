@@ -4,7 +4,7 @@ title: 还在为Android中各种尺寸发愁吗
 time: 2015年11月19日
 location: 北京
 pulished: true
-excerpt_separator: "长乘以宽）"
+excerpt_separator: "（长乘以宽）"
 ---
 
 **笔者之所以决定总结这篇博文，是因为又一次晚上将将入睡之时突然惊醒，脑子中浮现出了Android，dp、sp、px等等一系列尺寸的东东(脑子潜意识回忆，怕忘记吧)，感觉很烦，（感觉有这种感受的小伙伴不止我一个），所以我决定把它记下来，供以后给自己和朋友参考。**
