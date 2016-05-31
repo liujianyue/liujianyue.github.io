@@ -4,7 +4,7 @@ title: ThreadPoolExecutor 线程池及其扩展
 time: 2016年05月06日
 location: 北京
 pulished: true
-excerpt_separator: "到页面。"
+excerpt_separator: "线程池主要由"
 ---
 ## 二， 线程池
 关于线程池，我之前在网上看了很多资料，感觉将的浅显易懂还是《Java Concurrency in Practice》一书，下面对书中的一些内容进行摘录和自我理解。从字面含义来看，是指管理一组同构工作的线程的资源池。线程池是与工作队列（Work Queue）密切相关，其中在工作队列中保存了所有等待执行的任务。工作者线程（WorkerThread）的任务很简单；从工作队列中获取一个任务，执行任务，然后返回线程池并等待先一个任务。
