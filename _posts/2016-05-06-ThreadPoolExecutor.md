@@ -32,6 +32,7 @@ excerpt_separator: "线程池主要由"
 
 #### keepAliveTime： 线程池维护线程所允许的空闲时间 
 1.默认情况下，核心线程将会在线程池中一直存活，即使他们处于闲置状态。若将ThreadPoolExecutor 的allowCoreThreadTimeOut (在JDK1.6之后)属性设置为ture，那么心智的核心线程在等待新任务到来时会有超市策略，这个时间间隔就有keepAliveTime决定，当等待时间超过此值时，核心线程就会终止。
+
 2.不管的allowCoreThreadTimeOut(在JDK1.6之后)的属性为何，非核心线程的闲置的时间超过这个值都会被收回。
 
 #### unit： 线程池维护线程所允许的空闲时间的单位 
@@ -40,7 +41,9 @@ NANOSECONDS、MICROSECONDS、MILLISECONDS、SECONDS。
 
 #### workQueue： 线程池所使用的缓冲队列 
 a.一个任务通过 execute(Runnable)方法被添加到线程池，任务就是一个 Runnable类型的对象，任务的执行方法就是 Runnable类型对象的run()方法。 
+
 b.workQueue是BlockingQueue类型，而BlockingQueue只是一个接口，它所表达的是当队列为空或者已满的时候，需要阻塞以等待生产者/消费者协同操作并唤醒线程。其有很多不同的具体实现类，各有特点。有的可以规定队列的长度，也有一些则是无界的。
+
 c.按照Executors类中的几个工厂方法，分别使用的是：
 LinkedBlockingQueue:FixedThreadPool和SingleThreadExecutor使用的是这个BlockingQueue，队列长度是无界的，适合用于提交任务相互独立无依赖的场景。
 SynchronousQueue:CachedThreadPool使用的是这个BlockingQueue，通常要求线程池不设定最大的线程数，以保证提交的任务有机会执行而不被丢掉。通常这个适合任务间有依赖的场景。
@@ -51,17 +54,28 @@ SynchronousQueue:CachedThreadPool使用的是这个BlockingQueue，通常要求�
 #### handler： 线程池对拒绝任务的处理策略 (拒绝执行处理器)
 
 a.这个参数不常用，当线程池由于队列已满或无法成功执行任务而不能执行新任务时，若将ThreadPoolExecutor 会调用handler 的 rejectedExecution 方法。
+
 b.对于任务丢弃，ThreadPoolExecutor以内部类的形式实现了4个策略。分别是：
 CallerRunsPolicy。提交任务的线程自己负责执行这个任务。
+
 AbortPolicy。使Executor抛出异常，通过异常做处理。
+
 DiscardPolicy。丢弃提交的任务。
+
 DiscardOldestPolicy。丢弃掉队列中最早加入的任务。
+
 在调用构造方法时，参数中未指定RejectedExecutionHandler情况下，默认采用AbortPolicy。
 
 ## 2.ThreadPoolExecutor 执行规则
-1.如果此时线程池中的数量小于corePoolSize，分为两种情况：a.如果通过execute(Runnable) 方法来添加线程，即使线程池中的线程都处于空闲状态，也要创建新的线程来处理被添加的任务；b.如果是 threadFactory.newThread(Runnable) 来添加线程那么会直接启动一个核心线程来执行任务。
+1.如果此时线程池中的数量小于corePoolSize，分为两种情况：
+
+a.如果通过execute(Runnable) 方法来添加线程，即使线程池中的线程都处于空闲状态，也要创建新的线程来处理被添加的任务；
+b.如果是 threadFactory.newThread(Runnable) 来添加线程那么会直接启动一个核心线程来执行任务。
+
 2.如果此时线程池中的数量等于 corePoolSize，但是缓冲队列 workQueue未满，那么任务被放入缓冲队列。 
+
 3.如果此时线程池中的数量大于corePoolSize，缓冲队列workQueue满，并且线程池中的数量小于maximumPoolSize，建新的线程来处理被添加的任务。 
+
 4.如果此时线程池中的数量大于corePoolSize，缓冲队列workQueue满，并且线程池中的数量等于maximumPoolSize，那么通过 handler所指定的策略来处理此任务。
 
 ### 3.ThreadPoolExecutor的线程池大小的确定
@@ -100,10 +114,15 @@ P98 《Java Concurrency in Practice》
 ### ExecutorService中，和生命周期相关的，声明了5个方法：
 
 awaitTermination() 阻塞等待shutdown请求后所有线程终止，会有时间参数，超时和中断也会令方法调用结束
+
 isShutdown()  通过ctl属性判断当前的状态是否不是RUNNING状态
+
 isTerminated()  通过ctl属性判断当前的状态是否为TERMINATED状态
+
 shutdown() 关闭Executor，不再接受提交任务
+
 shutdownNow() 关闭Executor，不再接受提交任务，并且不再执行入队列中的任务
+
 在ThreadPoolExecutor中他们如下定义：
 
     public void shutdown() {
@@ -187,10 +206,15 @@ shutdownNow() 关闭Executor，不再接受提交任务，并且不再执行入�
 
 ### 除此之外，ThreadPoolExecutor还提供了其他扩展点供使用者扩展：
 1.beforeExecute() 在每个任务执行前做的处理
+
 2.afterExecute() 在每个任务执行后做的处理
+
 3.terminated() 在ThreadPoolExecutor到达TERMINATED状态前所做的处理
+
 4.finalize() 有默认实现，直接调用shutdown()，以保证线程池对象回收
-5.onShutdown() 在shutdown()方法执行到最后时调用，在java.util.concurrent.ScheduledThreadPoolExecutor类实现中用到了这个扩展点，做一些任务队列的清理操作
+
+5.onShutdown() 在shutdown()方法执行到最后时调用，
+6.在java.util.concurrent.ScheduledThreadPoolExecutor类实现中用到了这个扩展点，做一些任务队列的清理操作
 
     class MyThreadPoolExecutor extends ThreadPoolExecutor{
 		public MyThreadPoolExecutor(...) {
@@ -233,6 +257,8 @@ shutdownNow() 关闭Executor，不再接受提交任务，并且不再执行入�
 [java中Executor、ExecutorService、ThreadPoolExecutor介绍][4]
 
 感兴趣的同学也可以参考任玉刚《Android 开发艺术探索》关于这部分的讲解。后续可能还会接着写，完善这一部分。
+
+[下一篇：信号量的使用（Semaphore）](https://liujianyue.github.io/2016/05/06/ThreadPoolExecutor.html)
 
   [1]: http://ifeve.com/how-to-calculate-threadpool-size/
   [2]: http://coach.iteye.com/blog/855850
