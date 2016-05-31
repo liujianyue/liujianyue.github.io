@@ -72,4 +72,4 @@ C:synchronized methods(){} 与synchronized（this）{}之间没有什么区别�
 
 D:synchronized关键字是不能继承的,我想这一点也是很值得注意的，继承时子类的覆盖方法必须显示定义成synchronized
 
-[下一篇：ThreadPoolExecutor 线程池 及其扩展](http://liujianyue.github.io/2016/05/01/java-concurrent-programming.html)
+[下一篇：ThreadPoolExecutor 线程池 及其扩展](https://liujianyue.github.io/2016/05/06/ThreadPoolExecutor.html)
