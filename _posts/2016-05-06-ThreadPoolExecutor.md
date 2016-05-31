@@ -7,7 +7,8 @@ pulished: true
 excerpt_separator: "到页面。"
 ---
 ## 二， 线程池
-关于线程池，我之前在网上看了很多资料，感觉将的浅显易懂还是《Java Concurrency in Practice》一书，下面对书中的一些内容进行摘录和自我理解。从字面含义来看，是指管理一组同构工作的线程的资源池。线程池是与工作队列（Work Queue）密切相关，其中在工作队列中保存了所有等待执行的任务。工作者线程（Worker Thread）的任务很简单；从工作队列中获取一个任务，执行任务，然后返回线程池并等待先一个任务。
+关于线程池，我之前在网上看了很多资料，感觉将的浅显易懂还是《Java Concurrency in Practice》一书，下面对书中的一些内容进行摘录和自我理解。从字面含义来看，是指管理一组同构工作的线程的资源池。线程池是与工作队列（Work Queue）密切相关，其中在工作队列中保存了所有等待执行的任务。工作者线程（WorkerThread）的任务很简单；从工作队列中获取一个任务，执行任务，然后返回线程池并等待先一个任务。
+
 之所以学习线程池，是因为它比“为每一个任务分配一个线程具有巨大优势”。通过重用现有的线程而不是创建新线程，可以再处理多个请求是分摊在线程创建和销毁的过程中产生的巨大开销。另外，当请求到达时，工作线程通常已经存在，因此不会犹豫等待创建线程而延迟任务的执行，从而提高响应性，同事还可以防止过多线程相互竞争资源而是应用程序耗尽内存或失败。
 线程池主要由java通过ThreadPoolExecutor已经扩展好的四类方式，所以我们首先来学习ThreadPoolExecutor：
 ### 1.ThreadPoolExecutor
@@ -204,16 +205,19 @@ shutdownNow() 关闭Executor，不再接受提交任务，并且不再执行入�
 		}
 	}
 
-关于JAVA线程池，需要学习的东西还有很多，笔者主要参考了《Java Concurrency in Practice》书中关于这部分的解读，感兴趣的可以看一下[《Java Concurrency in Practice：chapter 8》][]
+关于JAVA线程池，需要学习的东西还有很多，笔者主要参考了《Java Concurrency in Practice》书中关于这部分的解读，感兴趣的可以看一下
+[《Java Concurrency in Practice：chapter 8》][]
+
  参考：
- [线程池ThreadPoolExecutor使用简介][2]
+[线程池ThreadPoolExecutor使用简介][2]
+
 [ThreadPoolExecutor的应用和实现分析][3]
+
 [java中Executor、ExecutorService、ThreadPoolExecutor介绍][4]
+
 感兴趣的同学也可以参考任玉刚《Android 开发艺术探索》关于这部分的讲解。后续可能还会接着写，完善这一部分。
 
   [1]: http://ifeve.com/how-to-calculate-threadpool-size/
   [2]: http://coach.iteye.com/blog/855850
   [3]: http://www.molotang.com/articles/514.html
-  [4]:http://blog.csdn.net/linghu_java/article/details/17123057
-  
   [4]: http://blog.csdn.net/linghu_java/article/details/17123057
