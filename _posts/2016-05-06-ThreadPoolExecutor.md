@@ -24,22 +24,22 @@ excerpt_separator: "线程池主要由"
                               RejectedExecutionHandler handler)
                               
                               
-#### corePoolSize： 线程池维护线程的最少数量 ,也可称为核心线程数
+**corePoolSize： 线程池维护线程的最少数量 ,也可称为核心线程数**
 这些线程可能一直存活，因为这样可以减少系统创建线程的开销。
 
-#### maximumPoolSize：线程池维护线程的最大数量 
+**maximumPoolSize：线程池维护线程的最大数量**
 当活动线程数量达到这个数值后，后续的新任务将会被阻塞。
 
-#### keepAliveTime： 线程池维护线程所允许的空闲时间 
+**keepAliveTime： 线程池维护线程所允许的空闲时间**
 1.默认情况下，核心线程将会在线程池中一直存活，即使他们处于闲置状态。若将ThreadPoolExecutor 的allowCoreThreadTimeOut (在JDK1.6之后)属性设置为ture，那么心智的核心线程在等待新任务到来时会有超市策略，这个时间间隔就有keepAliveTime决定，当等待时间超过此值时，核心线程就会终止。
 
 2.不管的allowCoreThreadTimeOut(在JDK1.6之后)的属性为何，非核心线程的闲置的时间超过这个值都会被收回。
 
-#### unit： 线程池维护线程所允许的空闲时间的单位 
+**unit： 线程池维护线程所允许的空闲时间的单位**
 unit可选的参数为java.util.concurrent.TimeUnit中的几个静态属性： 
 NANOSECONDS、MICROSECONDS、MILLISECONDS、SECONDS。
 
-#### workQueue： 线程池所使用的缓冲队列 
+**workQueue： 线程池所使用的缓冲队列**
 a.一个任务通过 execute(Runnable)方法被添加到线程池，任务就是一个 Runnable类型的对象，任务的执行方法就是 Runnable类型对象的run()方法。 
 
 b.workQueue是BlockingQueue类型，而BlockingQueue只是一个接口，它所表达的是当队列为空或者已满的时候，需要阻塞以等待生产者/消费者协同操作并唤醒线程。其有很多不同的具体实现类，各有特点。有的可以规定队列的长度，也有一些则是无界的。
@@ -49,9 +49,9 @@ LinkedBlockingQueue:FixedThreadPool和SingleThreadExecutor使用的是这个Bloc
 SynchronousQueue:CachedThreadPool使用的是这个BlockingQueue，通常要求线程池不设定最大的线程数，以保证提交的任务有机会执行而不被丢掉。通常这个适合任务间有依赖的场景。
 当然，开发者也可以定制ThreadPoolExecutor时使用ArrayBlockingQueue有界队列。
 
-#### threadFactory 创建新线程的线程构造器
+**threadFactory 创建新线程的线程构造器**
 它是一个接口类型，只有一个方法 Thread newThread(Runnable r).
-#### handler： 线程池对拒绝任务的处理策略 (拒绝执行处理器)
+**handler： 线程池对拒绝任务的处理策略 (拒绝执行处理器)**
 
 a.这个参数不常用，当线程池由于队列已满或无法成功执行任务而不能执行新任务时，若将ThreadPoolExecutor 会调用handler 的 rejectedExecution 方法。
 
@@ -90,16 +90,16 @@ b.如果是 threadFactory.newThread(Runnable) 来添加线程那么会直接启�
 ### 4.ThreadPoolExecutor 的预有配置
 java之所以人性化，是因为他已经考虑到了使用者在使用ThreadPoolExecutor 过程中对于根据实际场景而配置ThreadPoolExecutor的头疼问题，所以java为我们已经配置好了四种在实际应用场景中最常使用的配置,福利啊：
 
-### newFixedThreadPool
+**newFixedThreadPool**
 newFixedThreadPool将创建一个固定长度的线程池，每当提交一个任务就创建一个线程，知道达到线程的最大数量，这个线程池的规模将不再变化（如果某个线程由于发生了未预料的Exception而结束，那么线程池会补充一个新的线程）。
 
-### newCachedThreadPool
+**newCachedThreadPool**
 newCachedThreadPool 将创建一个可缓存的线程池，如果线程池的当前规模超过了需要时，那么将回收闲置的线程，而当需求增加时，则可以添加新的线程，线程池的规模不存在任何闲置。
 
-### newSingleThreadExecutor 
+**newSingleThreadExecutor** 
 newSingleThreadExecutor 是一个单线程的Executor，他创建单个工作者线程来执行任务，如果这个线程异常结束，将会创建另一个线程来替代。newSingleThreadExecutor 能确保依照任务在队列的顺序来串行执行（例如FIFO、LIFO、优先级）。
 
-### newScheduledThreadPool 
+**newScheduledThreadPool** 
 newScheduledThreadPoo 创建了一个固定长度的线程池，而且以延迟或定时的方式来执行任务，类似于Timer。
 
 P98 《Java Concurrency in Practice》
@@ -107,11 +107,11 @@ P98 《Java Concurrency in Practice》
 ### 5.ThreadPoolExecutor 的扩展
 我们知道ThreadPoolExecutor是ExecutorService的一个实现类，而在ExecutorService 是继承Executor而来，ExecutorService 在Executor的基础上既增加了submmit系列接口也增加了对生命周期的控制。
 
-### submit系列接口
+**submit系列接口**
 
 ![submit系列接口](/assets/img/ThreadPoolExecutor-submmit.png)
 
-### ExecutorService中，和生命周期相关的，声明了5个方法：
+**ExecutorService中，和生命周期相关的，声明了5个方法：**
 
 awaitTermination() 阻塞等待shutdown请求后所有线程终止，会有时间参数，超时和中断也会令方法调用结束
 
@@ -204,7 +204,7 @@ shutdownNow() 关闭Executor，不再接受提交任务，并且不再执行入�
         }
     }
 
-### 除此之外，ThreadPoolExecutor还提供了其他扩展点供使用者扩展：
+**除此之外，ThreadPoolExecutor还提供了其他扩展点供使用者扩展：**
 1.beforeExecute() 在每个任务执行前做的处理
 
 2.afterExecute() 在每个任务执行后做的处理
@@ -250,6 +250,7 @@ shutdownNow() 关闭Executor，不再接受提交任务，并且不再执行入�
 <a href="/assets/files/Java-Concurrency-in-Practice-chapter-8.pdf">《Java Concurrency in Practice：chapter 8》</a>
 
  参考：
+ 
 [线程池ThreadPoolExecutor使用简介][2]
 
 [ThreadPoolExecutor的应用和实现分析][3]
