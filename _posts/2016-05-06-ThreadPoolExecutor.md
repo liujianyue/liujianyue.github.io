@@ -206,7 +206,7 @@ shutdownNow() 关闭Executor，不再接受提交任务，并且不再执行入�
 	}
 
 关于JAVA线程池，需要学习的东西还有很多，笔者主要参考了《Java Concurrency in Practice》书中关于这部分的解读，感兴趣的可以看一下
-[《Java Concurrency in Practice：chapter 8》][]
+<a href="/assets/files/Java-Concurrency-in-Practice-chapter-8.pdf">《Java Concurrency in Practice：chapter 8》</a>
 
  参考：
 [线程池ThreadPoolExecutor使用简介][2]
