@@ -66,7 +66,7 @@ DiscardOldestPolicy。丢弃掉队列中最早加入的任务。
 
 在调用构造方法时，参数中未指定RejectedExecutionHandler情况下，默认采用AbortPolicy。
 
-## 2.ThreadPoolExecutor 执行规则
+### 2.ThreadPoolExecutor 执行规则
 1.如果此时线程池中的数量小于corePoolSize，分为两种情况：
 
 a.如果通过execute(Runnable) 方法来添加线程，即使线程池中的线程都处于空闲状态，也要创建新的线程来处理被添加的任务；
@@ -87,7 +87,7 @@ b.如果是 threadFactory.newThread(Runnable) 来添加线程那么会直接启�
     MAXIMUM_POOL_SIZE = CPU_COUNT * 2 + 1;
     
     
-## 4.ThreadPoolExecutor 的预有配置
+### 4.ThreadPoolExecutor 的预有配置
 java之所以人性化，是因为他已经考虑到了使用者在使用ThreadPoolExecutor 过程中对于根据实际场景而配置ThreadPoolExecutor的头疼问题，所以java为我们已经配置好了四种在实际应用场景中最常使用的配置,福利啊：
 
 ### newFixedThreadPool
@@ -104,7 +104,7 @@ newScheduledThreadPoo 创建了一个固定长度的线程池，而且以延迟�
 
 P98 《Java Concurrency in Practice》
 
-## 5.ThreadPoolExecutor 的扩展
+### 5.ThreadPoolExecutor 的扩展
 我们知道ThreadPoolExecutor是ExecutorService的一个实现类，而在ExecutorService 是继承Executor而来，ExecutorService 在Executor的基础上既增加了submmit系列接口也增加了对生命周期的控制。
 
 ### submit系列接口
