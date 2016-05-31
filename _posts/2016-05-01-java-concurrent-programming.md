@@ -19,7 +19,9 @@ JAVA 并发操作，我目前遇到的可能有以下几种方式：
  8. Collections.synchronizedList 等使用；
  9. Object 对象自带的 wait()、notify()、notifyAll() 的使用；
  10. blockingquene 的使用；
+ 
 going on
+
 ## 一， synchronized 关键字
 synchronized 关键字，代表这个方法加锁,相当于不管哪一个线程A每次运行到这个方法时,都要检查有没有其它正在用这个方法的线程B（或者C D等）,有的话要等正在使用这个方法的线程B（或者C D）运行完这个方法后再运行此线程A,没有的话,直接运行它包括两种用法：synchronized 方法和 synchronized 块。
 ### synchronized 方法
