@@ -15,6 +15,7 @@ excerpt_separator: "~~~~"
 **Handler**
 
 处理者，负责Message的发送及处理。使用Handler时，需要实现handleMessage(Message msg)方法来对特定的Message进行处理，例如更新UI等。
+
 **Looper**
 
 消息队列，不断地从MessageQueue中抽取Message执行。因此，一个MessageQueue需要一个Looper。
@@ -25,7 +26,7 @@ excerpt_separator: "~~~~"
 	
 ## 2.讲清楚
 
-Android系统的消息队列和消息循环都是针对具体线程的，一个线程可以存在（当然也可以不存在）一个消息队列和一个消 息循环（Looper），特定线程的消息只能分发给本线程，不能进行跨线程，跨进程通讯。想学习使用handler 和 messager 进行跨进程通信，可以参考[使用Messager 进行进程间通信][1]但是创建的工作线程默认是没有消息循环和消息队列的，如果想让该 线程具有消息队列和消息循环，需要在线程中首先调用Looper.prepare()来创建消息队列，然后调用Looper.loop()进入消息循环。 三步：
+Android系统的消息队列和消息循环都是针对具体线程的，一个线程可以存在（当然也可以不存在）一个消息队列和一个消息循环（Looper），特定线程的消息只能分发给本线程，不能进行跨线程，跨进程通讯。想学习使用handler 和 messager进行跨进程通信，可以参考[使用Messager 进行进程间通信][1]但是创建的工作线程默认是没有消息循环和消息队列的，如果想让该线程具有消息队列和消息循环，需要在线程中首先调用Looper.prepare()来创建消息队列，然后调用Looper.loop()进入消息循环。 三步：
 
     class LooperThread extends Thread { 
       public Handler mHandler; 
@@ -33,7 +34,7 @@ Android系统的消息队列和消息循环都是针对具体线程的，一个�
       public void run() { 
           Looper.prepare(); //① 初始化一个Looper 实例，并放到 sThreadLocal中
    
-          mHandler = new Handler() { // ② new 一个handler，此时将mHandler与与Looper、														//MessageQueue相关联
+          mHandler = new Handler() { // ② new 一个handler，此时将mHandler与与Looper、MessageQueue相关联			
               public void handleMessage(Message msg) { 
                   // process incoming messages here 
               } 
@@ -53,12 +54,12 @@ Android系统的消息队列和消息循环都是针对具体线程的，一个�
         sThreadLocal.set(new Looper(true));
         }
         
-**PS：sThreadLocal 是 一个ThreadLocal 变量，它可以根据不同的线程将当前数值保存在一个map中，这样做可以减小系统对于在不同线程中重复开辟一个相同变量付出的开销，关于ThreadLocal 网上有很多解释，大家可以参考，大家也可以参看一下ContentProvider 的源码，其中也用到了大量的ThreadLocal，后续我也回总结一篇关于ThreadLocal 的文章。**
+**PS：sThreadLocal 是 一个ThreadLocal 变量，它可以根据不同的线程将当前数值保存在一个map中，这样做可以减小系统对于在不同线程中重复开辟一个相同变量付出的开销，关于ThreadLocal 网上有很多解释，大家可以参考，大家也可以参看一下ContentProvider的源码，其中也用到了大量的ThreadLocal，后续我也回总结一篇关于ThreadLocal 的文章。**
 
 **new Handler() 源码**
 
     public Handler() { 
-    		this(null, false);  // 通常我们会调用无参构造函数，当时他还会调用有参构造函数
+    	this(null, false);  // 通常我们会调用无参构造函数，当时他还会调用有参构造函数
     }
     public Handler(Callback callback, boolean async) {  
         if (FIND_POTENTIAL_LEAKS) {  
@@ -161,6 +162,7 @@ Android系统的消息队列和消息循环都是针对具体线程的，一个�
 
 通过代码，应该能够明白一下两点了：
 a.Looper 保证了每个线程只有一个Looper 和一个MessageQueue；
+
 b. 实际处理消息者 可以从代码： msg.target.dispatchMessage(msg) 看出，谁发送了消息，谁将最终处理消息；
 
 好吧，上边太多，有些凌乱了吧，没事我们总结一下下：
@@ -172,7 +174,7 @@ b. 实际处理消息者 可以从代码： msg.target.dispatchMessage(msg) 看�
 
 4.Handler的sendMessage方法，会给msg的target赋值为handler自身，然后加入MessageQueue中。
 
-5.创建Handler实例时，会重写handleMessage方法，也就是msg.target.dispatchMessage(msg)最终调用的方法，当然这还有Callback供你选择。
+5.创建Handler实例时，会重写handleMessage方法，即msg.target.dispatchMessage(msg)最终调用的方法，当然这还有Callback供你选择。
 
 **PS：1.你可能有一点会感到困惑，在Handler实际应用中，没有写过Looper.prepare()，Looper.loop(); 表急，Android 太贴心，已经在 Activity ActivityThread线程中对这些东东做了所有准备工作。
 2.如果是我们手动在非主线程创建了Looper，那最好在我们不需要子线程handler再工作了手动去停止Looper，两种方法：quit(),QuitSafety(),两者的区别在于后者会等MssageQueue所有消息处理完在退出。**
@@ -221,7 +223,7 @@ b. 实际处理消息者 可以从代码： msg.target.dispatchMessage(msg) 看�
 
 **3.Activity.runOnUiThread(Runnable)**
 
-以上两种你可能觉得方法独特，有种另辟蹊径的赶脚，不过你被骗了，其实这两个方法归根到底仍然是使用了Handler ，他们获得主线程的handler，并使用post(Runable).看一下源码你就知道了：
+以上两种你可能觉得方法独特，有种另辟蹊径的赶脚，不过你被骗了，其实这两个方法归根到底仍然是使用了Handler，他们获得主线程的handler，并使用post(Runable).看一下源码你就知道了：
 
 
 	View.java
