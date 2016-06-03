@@ -13,6 +13,7 @@ excerpt_separator: "Syntax"
 "singleTask"
 "singleInstance"
 在Android中，承载启动模式的载体是任务栈(activity stack)，它的功能类似于函数调用中的栈，Activity进入栈的顺序代表了，activity的启动顺序，先启动的Activity的被压入栈底部。我们接下来详细讲解这四种启动模式。
+
 ## 使用方式
 
     <activity
