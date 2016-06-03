@@ -4,7 +4,7 @@ title: 关于Activity 启动模式及你所应该知道的一切
 time: 2016年03月21日
 location: 北京
 pulished: true
-excerpt_separator: "Syntax"
+excerpt_separator: "~~~"
 ---
 
 对于启动模式，官方文档这样解释：启动模式指示一个activity应该如何被加载，有四种可以和Intent结合使用的activity标记位，从而决定当一个activity被调用时，它将如何去相应这个intent，他们分别是：
@@ -12,7 +12,7 @@ excerpt_separator: "Syntax"
 "singleTop" 
 "singleTask"
 "singleInstance"
-在Android中，承载启动模式的载体是任务栈(activity stack)，它的功能类似于函数调用中的栈，Activity进入栈的顺序代表了，activity的启动顺序，先启动的Activity的被压入栈底部。我们接下来详细讲解这四种启动模式。
+在Android中，承载启动模式的载体是任务栈(activity stack)，它的功能类似于函数调用中的栈，Activity进入栈的顺序代表了，activity的启动顺序，先启动的Activity的被压入栈底部。我们接下来详细讲解这四种启动模式。~~~
 
 ## 使用方式
 
