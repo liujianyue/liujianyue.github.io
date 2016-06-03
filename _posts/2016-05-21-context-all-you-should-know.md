@@ -168,10 +168,11 @@ Context到底可以实现哪些功能呢？这个就实在是太多了，弹出T
 总之Context在Android系统中的地位很重要，它几乎无所不能，但它也不是你想用就能随便用的，谨防使用不当引起的内存问题。如果还有疑问或者想了解更多内容，可以去看我的：[视频课程][4]
 
 文／尹star（简书作者）
-原文链接：http://www.jianshu.com/p/94e0f9ab3f1d
+原文链接：[http://www.jianshu.com/p/94e0f9ab3f1d][5]
 
 
   [1]: http://upload-images.jianshu.io/upload_images/1187237-1b4c0cd31fd0193f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240
   [2]: http://upload-images.jianshu.io/upload_images/1187237-fb32b0f992da4781.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240
   [3]: http://upload-images.jianshu.io/upload_images/1187237-593b912ecd199046.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240
   [4]: http://stay4it.com/course/25
+  [5]: http://www.jianshu.com/p/94e0f9ab3f1d
