@@ -13,8 +13,8 @@ JAVA 并发操作，我目前遇到的可能有以下几种方式：
  2. ThreadPoolExecutor 线程池 及其扩展；
  3. 信号量的使用（Semaphore）；
  4. volatile关键字的使用；
- 5. ThreadLocal 使用；
- 6. CountDownLathch 类型使用；
+ 5. CountDownLathch 类型使用；
+ 6. ThreadLocal 使用；
  7. CopyOnWriteAarrayList<T> 等使用；
  8. Collections.synchronizedList 等使用；
  9. Object 对象自带的 wait()、notify()、notifyAll() 的使用；
