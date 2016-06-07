@@ -177,7 +177,7 @@ b. 实际处理消息者 可以从代码： msg.target.dispatchMessage(msg) 看�
 5.创建Handler实例时，会重写handleMessage方法，即msg.target.dispatchMessage(msg)最终调用的方法，当然这还有Callback供你选择。
 
 **PS：1.你可能有一点会感到困惑，在Handler实际应用中，没有写过Looper.prepare()，Looper.loop(); 表急，Android 太贴心，已经在 Activity ActivityThread线程中对这些东东做了所有准备工作。
-2.如果是我们手动在非主线程创建了Looper，那最好在我们不需要子线程handler再工作了手动去停止Looper，两种方法：quit(),QuitSafety(),两者的区别在于后者会等MssageQueue所有消息处理完在退出。**
+2.如果是我们手动在非主线程创建了Looper，那最好在我们不需要子线程handler再工作时手动去停止Looper，两种方法：quit(),QuitSafety(),两者的区别在于后者会等MssageQueue所有消息处理完在退出。**
 
 ## 3. 其他一些东东：关于非UI线程更新UI
 

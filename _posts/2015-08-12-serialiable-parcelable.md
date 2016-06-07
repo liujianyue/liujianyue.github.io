@@ -41,7 +41,7 @@ Intent 都支持对这两种数据形式的专递，先看一下基本用法：
         private int age;
 
          public int describeContents() {
-             return 0;
+             return 0;//只有含有文件描述符才返回 1
          }
 
          public void writeToParcel(Parcel out, int flags) {
@@ -112,6 +112,6 @@ Parcelable 使用格式基本固定，你可以使用网上的一些库来自动
         return fd;
     }
 
-所分配到每一个binder线程缓冲区大小也不会很大，我在其他博客中看到有说具体数值的，逼着并不这样认为，因为binder缓冲池为进程中所binder线程共同使用，它的大小依赖于当前缓冲池可分配的大小，应该是一个范围。所以在使用bundle传递数据时应对数据进行优化，避免传递过大数据导致异常发生：TransactionTooLargeException：The Binder transaction failed because it was too large.。
+所以分配到每一个binder线程缓冲区大小也不会很大，我在其他博客中看到有说具体数值的，我并不这样认为，因为binder缓冲池为进程中所binder线程共同使用，它的大小依赖于当前缓冲池可分配的大小，应该是一个范围。所以在使用bundle传递数据时应对数据进行优化，避免传递过大数据导致异常发生：TransactionTooLargeException：The Binder transaction failed because it was too large.。
 
 Serializable和Parcelable 就先总结到这吧，每次写一篇文章都会联想起大量的其他东东，不写了，否则一会不知道跑哪去了。
