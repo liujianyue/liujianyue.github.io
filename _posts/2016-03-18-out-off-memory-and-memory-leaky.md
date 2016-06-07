@@ -1,6 +1,6 @@
 ---
 layout: post_layout
-title: Android 内存泄漏的总结
+title: Android 内存溢出和内存泄漏的总结
 time: 2016年03月28日
 location: 北京
 pulished: true
