@@ -271,7 +271,17 @@ handler 被阻塞说的有点不正确，确切的说应该是handler中待处�
             }
         }
 
-关于Android中的内存泄漏的情况，我就先总结这么多，写完，其实也发现解决handler 和 Asyntask的内存泄漏将的并不是很清楚，其实解决这两种情况的内存泄漏，我个人认为最重要的就是正确的停止handler或是asynctask任务，防止由于两者的阻塞到最后activity不能正常销毁，这个我之前看过别的文章，我会以后总结一下的。
+**绑定而无解绑**
+
+这种情况一般指的是broadcastReceiver和contentObserver，注册后没有解注册，我相信刚学习android的同学都遇到过系统提示的关于解绑的错误，这个注意点就好，不多说。
+
+**忘记了回收与重复利用**
+回想一下TypedArray、Bitmap、Parcel是不是都存在用完以后需要回收的情况，对于这一点，开发工具有时会提示我们需要recycle，这三者都占用了较大的内存，不及时会后导致内存泄漏。
+
+另外想想哪里需要重复利用呢，其实这种场景很多，最经典肯定要属 Adapter 中重复利用viewHolder，不过时下RecycleView ‘大行其道’，已经为我们包装的很好，不需要人为的考虑这一点，使我们把重心放到效果上，很贴心。
+
+
+关于Android中的内存泄漏的情况，我就先总结这么多，写完了其实也发现解决handler 和 Asyntask的内存泄漏讲的并不是很清楚，其实解决这两种情况的内存泄漏，我个人认为最重要的就是正确的停止handler或是asynctask任务，防止由于两者的阻塞使得activity不能正常销毁，这个我会以后总结一下的。
 
   [1]: http://outofmemory.cn/c/java-outOfMemoryError
   [2]: http://blog.sina.com.cn/s/blog_701c951f0100n1sp.html
