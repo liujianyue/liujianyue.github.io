@@ -19,8 +19,8 @@ JAVA 并发操作，我目前遇到的可能有以下几种方式：
  8. Collections.synchronizedList 等使用；
  9. Object 对象自带的 wait()、notify()、notifyAll() 的使用；
  10. blockingquene 的使用；
- 11.原子操作(Atomic**)
- 12.Callable、Future和FutureTask 的使用；
+ 11. 原子操作(Atomic**)；
+ 12. Callable、Future和FutureTask 的使用；
  
 going on
 
