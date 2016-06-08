@@ -4,7 +4,7 @@ title: 基于Android系统Api封装常用工具类（转载）
 time: 2016年06月8日
 location: 北京
 pulished: true
-excerpt_separator: "Syntax"
+excerpt_separator: "~~~"
 ---
 
 最近看到一片关于Android日常开发经常使用的工具类的总结，看了一下代码，果然很全，就像作者说的那样，记下来避免以后继续踩坑。
@@ -17,7 +17,7 @@ excerpt_separator: "Syntax"
 这个library还在功能迭代中,功能不尽完善…
 
     compile 'com.code19.library:library:0.0.7'
-
+~~~
 # 常用工具类
 
 每一个Android开发者在日常开发中都会积累一些自己的代码片段
