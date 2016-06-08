@@ -83,8 +83,8 @@ b.如果是 threadFactory.newThread(Runnable) 来添加线程那么会直接启�
 根据官方文档以及其他的专业书籍的建议，核心线程数以及线程池的大小在如下配置时可以实现资源最优利用率：
   
     CPU_COUNT = Runtime.getRuntime().availableProcessors();
-   	CORE_POOL_SIZE = CPU_COUNT + 1;
-    MAXIMUM_POOL_SIZE = CPU_COUNT * 2 + 1;
+   	如果是CPU密集型应用，则线程池大小设置为CPU_COUNT+1
+	如果是IO密集型应用，则线程池大小设置为2*CPU_COUNT+1
     
     
 ### 4.ThreadPoolExecutor 的预有配置
