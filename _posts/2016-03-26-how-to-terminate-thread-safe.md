@@ -4,7 +4,7 @@ title: 如何安全的停止一个线程
 time: 2016年03月26日
 location: 北京
 pulished: true
-excerpt_separator: "Syntax"
+excerpt_separator: "~~~"
 ---
 
 我也是前一阵子看到了一个博客谈论停止AsyncTask 的cancel(boolean) 方法时，想起了如何能够安全的突出一个线程，是的线程退出，释放他所持的的其他对象的引用。AsyncTask 的cancel() 方法调用后，只有等到doInBackground() 执行后 才能停止执行onPostExecute()，但是万一doInBackground() 发生阻塞，或是它是一个相当耗时的操作肿么办，哈哈，所以说还得看看，如何能够安全的、迅速的停止一个线程。
@@ -15,7 +15,7 @@ excerpt_separator: "Syntax"
 
 2.使用stop方法强行终止线程（它和stop、suspend、resume一样，也可能发生不可预料的结果，所以depressed）。 
 
- 3.使用interrupt方法中断线程。
+ 3.使用interrupt方法中断线程。~~~
 
 ## 使用退出标志位
 
