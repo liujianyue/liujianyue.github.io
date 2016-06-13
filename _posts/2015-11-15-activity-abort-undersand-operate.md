@@ -4,7 +4,7 @@ title: 关于Activity的生命周期以及异常销毁的理解
 time: 2015年11月15日
 location: 北京
 pulished: true
-excerpt_separator: "Syntax"
+excerpt_separator: "~~~"
 ---
 
 当一个ACtivity的呈现在我们面前时，开发者预期的事情是你会一直操作当前页面或者按back键返回，因为开发者不能预测到一个页面什么时候被系统调到后台，所以Android提供在这种情况下的处理机制。我们看一下下面几种情况，哪种属于activity的正常退出，哪种属于异常销毁：
@@ -18,7 +18,7 @@ f.按back键
 
 显然除了按back键以外，其他都属于异常销毁，Android为我们提供了针对异常销毁的处理机制，相信大家都很熟悉，这几乎是面试基本会问到的内容，使用onSaveInstanceState(),能够很好的处理页面的异常销毁。不过你可能很清楚这一点，但是偶一个问题，onSaveInstanceState()到底在什么时候会调用？
 关于这个问题先不急于回答，在我刚学习Android的时候，遇到不懂的问题第一时间找百度，久而久之我发现我所学会除了微不足道的android技能外就剩下如何在百度的汪洋大海中寻找自己想要的代码的能力了，然并卵，后来博客中我发现大神们比较推荐的一是阅读高质量的源码，二是及时的去阅读Android官方文。我深受启发，我试着去阅读官方文档，其中英语内容并不会包含比较复杂的单词，慢慢的我发现，我之前在网上看到的代码存在很大问题，有的并不是官方文档推荐的，茅塞顿开，恍然大悟啊。为什么要说着些，因为在写这篇博客前，我又重新阅读了官方关于Activity的文档，它囊括了几乎activity生命周期的所有东西，所以总结Activity的异常销毁，我觉得有必要阅读文档，在此基础上在加上我的一些其他理解。
-
+~~~
 Activity 有三种关键的状态需要引起我们的注意：
 
 1.The entire lifetime of an activity happens between the first call to onCreate(Bundle) through to a single final call to onDestroy(). An activity will do all setup of "global" state in onCreate(), and release all remaining resources in onDestroy(). For example, if it has a thread running in the background to download data from the network, it may create that thread in onCreate() and then stop the thread in onDestroy(). 
