@@ -9,23 +9,21 @@ excerpt_separator: "~~~"
 
 当一个ACtivity的呈现在我们面前时，开发者预期的事情是你会一直操作当前页面或者按back键返回，因为开发者不能预测到一个页面什么时候被系统调到后台，所以Android提供在这种情况下的处理机制。我们看一下下面几种情况，哪种属于activity的正常退出，哪种属于异常销毁：
 
-a.屏幕的方向xuanzhuan
+a.屏幕的方向旋转
+
 b.按下home键
+
 c.人为或是系统调用了其他activity
+
 d.内存不错，app被kill
+
 e.锁屏
+
 f.按back键
 
 显然除了按back键以外，其他都属于异常销毁，Android为我们提供了针对异常销毁的处理机制，相信大家都很熟悉，这几乎是面试基本会问到的内容，使用onSaveInstanceState(),能够很好的处理页面的异常销毁。不过你可能很清楚这一点，但是偶一个问题，onSaveInstanceState()到底在什么时候会调用？
 关于这个问题先不急于回答，在我刚学习Android的时候，遇到不懂的问题第一时间找百度，久而久之我发现我所学会除了微不足道的android技能外就剩下如何在百度的汪洋大海中寻找自己想要的代码的能力了，然并卵，后来博客中我发现大神们比较推荐的一是阅读高质量的源码，二是及时的去阅读Android官方文。我深受启发，我试着去阅读官方文档，其中英语内容并不会包含比较复杂的单词，慢慢的我发现，我之前在网上看到的代码存在很大问题，有的并不是官方文档推荐的，茅塞顿开，恍然大悟啊。为什么要说着些，因为在写这篇博客前，我又重新阅读了官方关于Activity的文档，它囊括了几乎activity生命周期的所有东西，所以总结Activity的异常销毁，我觉得有必要阅读文档，在此基础上在加上我的一些其他理解。
 ~~~
-Activity 有三种关键的状态需要引起我们的注意：
-
-1.The entire lifetime of an activity happens between the first call to onCreate(Bundle) through to a single final call to onDestroy(). An activity will do all setup of "global" state in onCreate(), and release all remaining resources in onDestroy(). For example, if it has a thread running in the background to download data from the network, it may create that thread in onCreate() and then stop the thread in onDestroy(). 
-
-2.The visible lifetime of an activity happens between a call to onStart() until a corresponding call to onStop(). During this time the user can see the activity on-screen, though it may not be in the foreground and interacting with the user. Between these two methods you can maintain resources that are needed to show the activity to the user. For example, you can register a BroadcastReceiver in onStart() to monitor for changes that impact your UI, and unregister it in onStop() when the user no longer sees what you are displaying. The onStart() and onStop() methods can be called multiple times, as the activity becomes visible and hidden to the user. 
-
-3.The foreground lifetime of an activity happens between a call to onResume() until a corresponding call to onPause(). During this time the activity is in front of all other activities and interacting with the user. An activity can frequently go between the resumed and paused states -- for example when the device goes to sleep, when an activity result is delivered, when a new intent is delivered -- so the code in these methods should be fairly lightweight. 
 
 在activity的各个生命周期中，我就的我们需要注意以下几点：
 1.onCreate()：Called when the activity is first created. This is where you should do all of your normal static set up: create views, bind data to lists, etc. This method also provides you with a Bundle containing the activity's previously frozen state, if there was one. 
@@ -56,6 +54,7 @@ Followed by either onRestart() if this activity is coming back to interact with 
 
 有两种情况将会调用该方法：一是认为退出当前活动页面，二是系统为了节省空间而临时销毁当前activity实例。但是我们可以调用 isFinishing()来判断是哪种情况，true代表前一种前一种	
 
+**理解上述上述声明周期，我觉得弄清各个方法所产生的效果便于理解：onStart() 和 onStop() 是针对于activity可不可见，而onResume()和onPause() 则是针对于在activity可见是能不能与用户交互。**
 
 8.onSaveInstanceState (Bundle outState) ：This method is called before an activity may be killed so that when it comes back some time in the future it can restore its state. For example, if activity B is launched in front of activity A, and at some point activity A is killed to reclaim resources, activity A will have a chance to save the current state of its user interface via this method so that when the user returns to activity A, the state of the user interface can be restored via onCreate(Bundle) or onRestoreInstanceState(Bundle). 
 
