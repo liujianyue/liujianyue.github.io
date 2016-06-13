@@ -249,6 +249,7 @@ f.在《Effective JAVA》中曾建议尽量考虑使用枚举类型代替“int 
 
             FINISHED,
         }
+        
    具体关于把这部分不再本博客的讲解之内，我只是提醒一下  ( T T) .    
         
   [1]: https://liujianyue.github.io/2016/05/06/ThreadPoolExecutor.html
