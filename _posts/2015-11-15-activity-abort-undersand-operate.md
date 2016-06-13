@@ -22,8 +22,8 @@ e.锁屏
 f.按back键
 
 显然除了按back键以外，其他都属于异常销毁，Android为我们提供了针对异常销毁的处理机制，相信大家都很熟悉，这几乎是面试基本会问到的内容，使用onSaveInstanceState(),能够很好的处理页面的异常销毁。不过你可能很清楚这一点，但是偶一个问题，onSaveInstanceState()到底在什么时候会调用？
-关于这个问题先不急于回答，在我刚学习Android的时候，遇到不懂的问题第一时间找百度，久而久之我发现我所学会除了微不足道的android技能外就剩下如何在百度的汪洋大海中寻找自己想要的代码的能力了，然并卵，后来博客中我发现大神们比较推荐的一是阅读高质量的源码，二是及时的去阅读Android官方文。我深受启发，我试着去阅读官方文档，其中英语内容并不会包含比较复杂的单词，慢慢的我发现，我之前在网上看到的代码存在很大问题，有的并不是官方文档推荐的，茅塞顿开，恍然大悟啊。为什么要说着些，因为在写这篇博客前，我又重新阅读了官方关于Activity的文档，它囊括了几乎activity生命周期的所有东西，所以总结Activity的异常销毁，我觉得有必要阅读文档，在此基础上在加上我的一些其他理解。
-~~~
+关于这个问题先不急于回答，在我刚学习Android的时候，遇到不懂的问题第一时间找百度，久而久之我发现我所学会除了微不足道的android技能外就剩下如何在百度的汪洋大海中寻找自己想要的代码的能力了，然并卵，后来博客中我发现大神们比较推荐的一是阅读高质量的源码，二是及时的去阅读Android官方文。我深受启发，我试着去阅读官方文档，其中英语内容并不会包含比较复杂的单词，慢慢的我发现，我之前在网上看到的代码存在很大问题，有的并不是官方文档推荐的，茅塞顿开，恍然大悟啊。为什么要说着些，因为在写这篇博客前，我又重新阅读了官方关于Activity的文档，它囊括了几乎activity生命周期的所有东西，所以总结Activity的异常销毁，我觉得有必要阅读文档，在此基础上在加上我的一些其他理解。~~~
+
 
 在activity的各个生命周期中，我就的我们需要注意以下几点：
 1.onCreate()：Called when the activity is first created. This is where you should do all of your normal static set up: create views, bind data to lists, etc. This method also provides you with a Bundle containing the activity's previously frozen state, if there was one. 
