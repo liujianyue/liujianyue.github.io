@@ -6,7 +6,7 @@ location: 北京
 pulished: true
 excerpt_separator: "~~~"
 ---
-听到五种方法你是不是被吓到了，哪有五种，你胡说！我真的没有胡说，接下来我们就看看吧。说到fragment之间的通信，你肯定也会想到一些方法，到底都有哪些情况我们需要fragment之间通信，又有哪些fragment之间通信的方法呢。
+听到五种方法你是不是被吓到了，哪有五种，你胡说！我真的没有胡说，说到fragment之间的通信，你肯定也会想到一些方法，到底都有哪些情况我们需要fragment之间通信，又有哪些fragment之间通信的方法呢。
 
 ## 不同Activity中的Fragment 数据传递
 
