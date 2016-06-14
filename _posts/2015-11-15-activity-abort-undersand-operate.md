@@ -76,55 +76,59 @@ If called, this method will occur before onStop(). There are no guarantees about
 
 而关于屏幕旋转导致activity销毁而重建，我们是不有方法是activity不重建呢，答案是肯定的，我们可以通过对屏幕旋转、语言、等一列配置来自定义对这个情况的处理，详细内容不再赘述。
 
-现在又这样一个问题，我们知道activity异常销毁时，有重建恢复数据的机制，那么如果我们需要回复的数据很大，并且不是普通类型，那该怎么办呢？官方文档曾经给过这样一个解决方法，这也是它推荐使用的方法：
+现在又这样一个问题，我们知道activity异常销毁时，有重建恢复数据的机制，那么如果我们需要回复的数据很大，并且不是普通类型，有人 说我们可以实现parcelable接口，序列化对象，再将其保存，这样做对于大多数对象应该是可以的，不过我们如果要保存图片呢，当我们消耗掉大量的资源从网络拉取了数张图片，谁也不希望由于activity的异常销毁导致重建时而重新复出高额的代价拉取图片，那该怎么办呢？官方文档曾经给过这样一个解决方法，这也是它推荐使用的方法：
+
+    private LruCache<String, Bitmap> mMemoryCache;  
+    @Override 
+    protected void onCreate(Bundle savedInstanceState) {  
+        ...    
+        RetainFragment retainFragment =             							RetainFragment.findOrCreateRetainFragment(getFragmentManager());
+       		 mMemoryCache = retainFragment.getData(); 
+       		 if (mMemoryCache == null) {  
+        		mMemoryCache = new LruCache<String, Bitmap>(cacheSize) {  
+        		... 
+                // Initialize cache here as usual      
+        }       
+       		 retainFragment.setData(mMemoryCache) ;    
+        }     
+        ...
+        } 
+        
+        class RetainFragment extends Fragment {  
+        
+            private static final String TAG = "RetainFragment";  
+            private LruCache<String, Bitmap> mRetainedCache;  
+            
+            public RetainFragment() {
+            
+            }      
+            public static RetainFragment findOrCreateRetainFragment(FragmentManager fm) {  
+            	RetainFragment fragment = (RetainFragment) fm.findFragmentByTag(TAG); 
+                if (fragment == null) { 
+                    fragment = new RetainFragment();  
+                    fm.beginTransaction().add(fragment, TAG).commit();   
+                }        
+                return fragment;    
+            }     
+            @Override    
+            public void onCreate(Bundle savedInstanceState) {   
+                super.onCreate(savedInstanceState); 
+                setRetainInstance(true);  
+            }		
+             public void setData(LruCache<String, Bitmap> mRetainedCache)  
+              {  
+                  this.mRetainedCache = data;  
+              }  
+
+              public MyAsyncTask getData()  
+              {  
+                  return mRetainedCache;  
+              }  
+    }
+
+代码中，使用 LruCache来缓存图片，需要注意，就算不是因为需要重新创建activity而使用 LruCache缓存，我们在日常的缓存机制中也是使用了 LruCache，所以上述代码的关键其实是使用fragment来缓存内容，并设置属性setRetainInstance(true)，这是关键步骤。所以通过fragment，我们不仅可以缓存图片这样的大数据，还可以集合任何其他的内容，可以参考鸿洋的博客：
+
+[Android 屏幕旋转 处理 AsyncTask 和 ProgressDialog 的最佳方案][1]
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  [1]: http://blog.csdn.net/lmj623565791/article/details/37936275
