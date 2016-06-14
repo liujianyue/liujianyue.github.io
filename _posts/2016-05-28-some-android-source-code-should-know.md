@@ -16,8 +16,8 @@ Handler
 
 Binder
 
-EventBus
-~~~
+EventBus~~~
+
 #  一，AsyncTask源码解析（Android 3.0以后版本）
 
 作为Android 最常使用的后台加载数据使用方法，Asynctask几乎是每个Android攻城狮都需要会使用，也应该明白原理的api，解析AsyncTask的源码的话题似乎先的很陈旧，因为网上关于这样的文章很多，不过个人认为大神解析时站在了比较高的高度上，而我想写是因为想从一个小白的角度来解析它，尽可能讲的全面而逻辑清晰。
