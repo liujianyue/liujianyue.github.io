@@ -120,7 +120,7 @@ If called, this method will occur before onStop(). There are no guarantees about
                   this.mRetainedCache = data;  
               }  
 
-              public MyAsyncTask getData()  
+              public LruCache<String, Bitmap> getData()  
               {  
                   return mRetainedCache;  
               }  
