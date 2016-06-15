@@ -127,6 +127,8 @@ get()源码：
             return createdValue;
         }
     }
+  
+    
 首先判断键Key是否为空，为空则抛出   NullPointerException("key == null")，这个没有疑问；接着定义了一个 V类型的mapValue，在使用synchronized关键字保证对LinkedHashMap访问的同步，试图去获得mapValue，如果mapValue不为空说明获取成功，hiCount加1，表示我们成功读取了一次值，并返回值，如果为空missCount加1，表示获取失败或键值对不存在的次数加1.当没有成功获取到值的时候，它接下来会使用create()函数去创建一个value，这里我们很多情况下并没有重写create()方法，这其实为我们手动创建一个value提供了扩展性，源码中返回null，多以一般也会返回null；倘若我们的确重写了create，那么接下仍然同步操作，createCount++，表示人为创建的value的个数，接下来，他会试图将创建的的createdValue保存到LinkedHashMap中，map.put(key, createdValue) 如返回一个值不为空，这说明之前已经包含了键为key的value，然后把刚才插入的createdValue剔除，换位之前的值，如果为空，表示插入成功，size的大小增加。接下来当mapValue不为空即插入失败时，有一个entryRemoved(false, key, createdValue, mapValue)，倘若你想要对上述情况做处理，那你需要重写这个函数，源码中为空实现。倘若mapValue为空，则需要做极为重要的事：trimToSize(maxSize)
     
     /**
@@ -195,6 +197,7 @@ put源码：
           trimToSize(maxSize);
           return previous;
       }
+
 
 首先它会判断key 、value两者是否为空，为空则抛出空指针异常NullPointerException("key == null || value == null") ；接着声明一个V类型的previous，接着仍然是在同步块中执行插入操作，size增加，并把返回值付给previous，加入previous不为空仍然说已经有一个key相同的键值对存在，size需要复原，在此像get中供用户处理这种情况一样，通过entryRemoved(false, key, previous, value)函数做处理，同时更新缓存中内容的新旧度，返回值。
 
