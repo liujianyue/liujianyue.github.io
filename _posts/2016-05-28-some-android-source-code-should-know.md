@@ -12,6 +12,8 @@ AsyncTask
 
 LruCache
 
+DiskLruCache
+
 Handler
 
 Binder
