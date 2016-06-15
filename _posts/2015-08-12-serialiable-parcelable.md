@@ -4,7 +4,7 @@ title: Activity 之间的数据传递之Serializable、Parcelable
 time: 2015年08月12日
 location: 北京
 pulished: true
-excerpt_separator: "Syntax"
+excerpt_separator: "~~~"
 ---
 
 Activity 之间的跳转，往往要附带专递各种数据，大多数情况下，我们值传递一些简单的基本类型，如int、String 等，但是在实际应用中我们也会传递一些类对象，他们往往夹带着比较大的数据，比如 bitmap，list 等，那我们是用什么？答案是 Serializable和Parcelable。
@@ -32,7 +32,8 @@ Intent 都支持对这两种数据形式的专递，先看一下基本用法：
         }
     }
 
-还是熟悉的味道还是熟悉的用法，serialVersionUID： Java的序列化机制是通过在运行时判断类的serialVersionUID来验证版本一致性的。在进行反序列化时，JVM会把传来的字节流中的serialVersionUID与本地相应实体（类）的serialVersionUID进行比较，如果相同就认为是一致的，可以进行反序列化，否则就会出现序列化版本不一致的异常(InvalidCastException)。serialVersionUID 这个值即可自己定义值，也可以让java通过计算为你生成唯一的一个值。
+
+~~~还是熟悉的味道还是熟悉的用法，serialVersionUID： Java的序列化机制是通过在运行时判断类的serialVersionUID来验证版本一致性的。在进行反序列化时，JVM会把传来的字节流中的serialVersionUID与本地相应实体（类）的serialVersionUID进行比较，如果相同就认为是一致的，可以进行反序列化，否则就会出现序列化版本不一致的异常(InvalidCastException)。serialVersionUID 这个值即可自己定义值，也可以让java通过计算为你生成唯一的一个值。
 
 **Parcelable**
 
