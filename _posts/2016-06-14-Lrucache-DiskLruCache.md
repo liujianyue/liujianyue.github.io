@@ -199,7 +199,7 @@ put源码：
       }
 
 
-首先它会判断key 、value两者是否为空，为空则抛出空指针异常NullPointerException("key == null || value == null") ；接着声明一个V类型的previous，接着仍然是在同步块中执行插入操作，size增加，并把返回值付给previous，加入previous不为空仍然说已经有一个key相同的键值对存在，size需要复原，在此像get中供用户处理这种情况一样，通过entryRemoved(false, key, previous, value)函数做处理，同时更新缓存中内容的新旧度，返回值。
+首先它会判断key 、value两者是否为空，为空则抛出空指针异常NullPointerException("key==null||value==null")；接着声明一个V类型的previous，接着仍然是在同步块中执行插入操作，size增加，并把返回值付给previous，加入previous不为空仍然说已经有一个key相同的键值对存在，size需要复原，在此像get中供用户处理这种情况一样，通过entryRemoved(false,key,previous,value)函数做处理，同时更新缓存中内容的新旧度，返回值。
 
 源码中不仅提供了put get 方法也提供了remove方法，它的原理很简单，不再赘述。下一篇我们将要总结一DiskLruCache哦，好兴奋。
 
