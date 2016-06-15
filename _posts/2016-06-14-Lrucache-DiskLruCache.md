@@ -32,7 +32,7 @@ excerpt_separator: "~~~"
 		 this.map = new LinkedHashMap<K, V>(0, 0.75f, true);
     }
     
-这是我们使用LruCache时最常使用额构造方法，我们可以清楚的看到其中不仅可以指定我们缓存需要的空间大小，并且实际的缓存机制是对LinkedHashMap的封装。看到“linked” 字眼，不用犹豫，这肯定是带有链表性质的集合类。LinkedHashMap<K,V> 继承 HashMap<K,V> 并实现了implements Map<K,V> 接口，可以这么说它是对HashMap的重新封装，创造除了带有链表性质的集合。链表什么性质，高效的插入删除和排序操作。我们再来联想一下缓存的特点，缓存由于空间大小有限，所以会时刻保持最新访问的内容，当控件不足使，剔除最不常访问的内容，这个特点也正好复合LinkedHashMap的特性。
+~~~这是我们使用LruCache时最常使用额构造方法，我们可以清楚的看到其中不仅可以指定我们缓存需要的空间大小，并且实际的缓存机制是对LinkedHashMap的封装。看到“linked” 字眼，不用犹豫，这肯定是带有链表性质的集合类。LinkedHashMap<K,V> 继承 HashMap<K,V> 并实现了implements Map<K,V> 接口，可以这么说它是对HashMap的重新封装，创造除了带有链表性质的集合。链表什么性质，高效的插入删除和排序操作。我们再来联想一下缓存的特点，缓存由于空间大小有限，所以会时刻保持最新访问的内容，当控件不足使，剔除最不常访问的内容，这个特点也正好复合LinkedHashMap的特性。
     好，我们接着分析LinkedHashMap的构造函数，initialCapacity代表其初始的容量，刚开始其中为空所以为0；loadFactor 翻译为负载因子，它是做什么的呢？我们知道，析LinkedHashMap为元素的查找提供了很好的支持，但是LinkedHashMap的越大，我们的查找时间越长，为了权衡空间大小与查找时间，Oracle的设计们时间和空间成本上做了折衷：增大负载因子可以减少 Hash 表（就是那个 Entry 数组）所占用的内存空间，但会增加查询数据的时间开销，而查询是最频繁的的操作（HashMap 的 get() 与 put() 方法都要用到查询）；减小负载因子会提高数据查询的性能，但会增加 Hash 表所占用的内存空间。估计这还不能说服你，这根本也没说服我，因为我既没有弄清楚负载因子的工作工程，并且也提出了质疑：负载因子越小，HashMap的利用空间越少，这不是空间上的浪费吗？我们最好还是不去纠结这个。还有有一个参数accessOrder，如果表示是true表示LinkedHashMap以后元素将是按照访问的顺序排序，否则将是按照插入的顺序排序，因为要实现缓存的效果，所以这个值要设置成true。
     
 看一下LruCache的最常用法：
@@ -128,42 +128,39 @@ get()源码：
     }
 首先判断键Key是否为空，为空则抛出   NullPointerException("key == null")，这个没有疑问；接着定义了一个 V类型的mapValue，在使用synchronized关键字保证对LinkedHashMap访问的同步，试图去获得mapValue，如果mapValue不为空说明获取成功，hiCount加1，表示我们成功读取了一次值，并返回值，如果为空missCount加1，表示获取失败或键值对不存在的次数加1.当没有成功获取到值的时候，它接下来会使用create()函数去创建一个value，这里我们很多情况下并没有重写create()方法，这其实为我们手动创建一个value提供了扩展性，源码中返回null，多以一般也会返回null；倘若我们的确重写了create，那么接下仍然同步操作，createCount++，表示人为创建的value的个数，接下来，他会试图将创建的的createdValue保存到LinkedHashMap中，map.put(key, createdValue) 如返回一个值不为空，这说明之前已经包含了键为key的value，然后把刚才插入的createdValue剔除，换位之前的值，如果为空，表示插入成功，size的大小增加。接下来当mapValue不为空即插入失败时，有一个entryRemoved(false, key, createdValue, mapValue)，倘若你想要对上述情况做处理，那你需要重写这个函数，源码中为空实现。倘若mapValue为空，则需要做极为重要的事：trimToSize(maxSize)
     
-  /**
-       * Remove the eldest entries until the total of remaining entries is at or
-       * below the requested size.
-       *
-       * @param maxSize the maximum size of the cache before returning. May be -1
-       *            to evict even 0-sized elements.
-       */
-      public void trimToSize(int maxSize) {
-          while (true) {
-              K key;
-              V value;
-              synchronized (this) {
-                  if (size < 0 || (map.isEmpty() && size != 0)) {
-                      throw new IllegalStateException(getClass().getName()
-                              + ".sizeOf() is reporting inconsistent results!");
-                  }
+    /**
+         * Remove the eldest entries until the total of remaining entries is at or
+         * below the requested size.
+         *
+         * @param maxSize the maximum size of the cache before returning. May be -1
+         *            to evict even 0-sized elements.
+         */
+        public void trimToSize(int maxSize) {
+            while (true) {
+                K key;
+                V value;
+                synchronized (this) {
+                    if (size < 0 || (map.isEmpty() && size != 0)) {
+                        throw new IllegalStateException(getClass().getName()
+                                + ".sizeOf() is reporting inconsistent results!");
+                    }
+                    if (size <= maxSize) {
+                        break;
+                    }
+                    Map.Entry<K, V> toEvict = map.eldest();
+                    if (toEvict == null) {
+                        break;
+                    }
+                    key = toEvict.getKey();
+                    value = toEvict.getValue();
+                    map.remove(key);
+                    size -= safeSizeOf(key, value);
+                    evictionCount++;
+                }
 
-                  if (size <= maxSize) {
-                      break;
-                  }
-
-                  Map.Entry<K, V> toEvict = map.eldest();
-                  if (toEvict == null) {
-                      break;
-                  }
-
-                  key = toEvict.getKey();
-                  value = toEvict.getValue();
-                  map.remove(key);
-                  size -= safeSizeOf(key, value);
-                  evictionCount++;
-              }
-
-              entryRemoved(true, key, value, null);
-          }
-      }
+                entryRemoved(true, key, value, null);
+            }
+        }
     
  这段代码是把最新的键值对保存下来并把老旧的值剔除，并且他还有另外一个功能，就是通过evictAll() 或trimToSize(-1)清空map.
 
@@ -200,7 +197,7 @@ put源码：
 
 首先它会判断key 、value两者是否为空，为空则抛出空指针异常NullPointerException("key == null || value == null") ；接着声明一个V类型的previous，接着仍然是在同步块中执行插入操作，size增加，并把返回值付给previous，加入previous不为空仍然说已经有一个key相同的键值对存在，size需要复原，在此像get中供用户处理这种情况一样，通过entryRemoved(false, key, previous, value)函数做处理，作为更新缓存中内容的新旧度，返回值。
 
-源码中不仅提供了put get 方法也提供了remove方法，它的原理很简单，不再赘述。
+源码中不仅提供了put get 方法也提供了remove方法，它的原理很简单，不再赘述。下一篇我们将要总结一DiskLruCache哦，好兴奋。
 
 
 
