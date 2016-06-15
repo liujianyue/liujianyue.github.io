@@ -7,7 +7,8 @@ pulished: true
 excerpt_separator: "~~~"
 ---
 
-今天总结LruCache吧，因为时下最热的图片加载库picasso 图片缓存也使用了LruCache，不过我看了一下源码，有改动哦。并且总结它是为了以后总结DiskLruCache，光看代码量，后者是前者的两倍，不过这对于庞大的动不动一个类就几千行代码的Android源码来说，简直是九牛一毛。废话不多说没直接主题。读LruCache源码，我觉得从他的构造函数接着在是常用方法来分析，这样思路清楚。
+今天总结LruCache吧，因为时下最热的图片加载库picasso图片缓存也使用了LruCache，不过我看了一下源码，有改动哦。并且总结它是为了以后总结DiskLruCache，光看代码量，后者是前者的两倍，不过这对于庞大的动不动一个类就几千行代码的Android源码来说，简直是九牛一毛。废话不多说没直接主题。读LruCache源码，我觉得从他的构造函数接着在是常用方法来分析，这样思路清楚。
+
 ## 构造函数
 
     /**
@@ -195,7 +196,7 @@ put源码：
           return previous;
       }
 
-首先它会判断key 、value两者是否为空，为空则抛出空指针异常NullPointerException("key == null || value == null") ；接着声明一个V类型的previous，接着仍然是在同步块中执行插入操作，size增加，并把返回值付给previous，加入previous不为空仍然说已经有一个key相同的键值对存在，size需要复原，在此像get中供用户处理这种情况一样，通过entryRemoved(false, key, previous, value)函数做处理，作为更新缓存中内容的新旧度，返回值。
+首先它会判断key 、value两者是否为空，为空则抛出空指针异常NullPointerException("key == null || value == null") ；接着声明一个V类型的previous，接着仍然是在同步块中执行插入操作，size增加，并把返回值付给previous，加入previous不为空仍然说已经有一个key相同的键值对存在，size需要复原，在此像get中供用户处理这种情况一样，通过entryRemoved(false, key, previous, value)函数做处理，同时更新缓存中内容的新旧度，返回值。
 
 源码中不仅提供了put get 方法也提供了remove方法，它的原理很简单，不再赘述。下一篇我们将要总结一DiskLruCache哦，好兴奋。
 
