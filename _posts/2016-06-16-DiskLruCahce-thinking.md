@@ -7,7 +7,7 @@ pulished: true
 excerpt_separator: "~~~"
 ---
 
-前两天总结了一下LruCache，很简单。现在很多应用，尤其是实时拉取内容的应用大多都会使用双缓存，即内存缓存以及磁盘缓存，及时时下流行的图片加载库也是用了双缓存，虽然他们对代码要不进行改动要不重写代码，但是原理类似，先推荐两篇关于DiskLruCache的使用以及分析文章：
+前两天总结了一下LruCache，很简单。现在很多应用，尤其是实时拉取内容的应用大多都会使用双缓存，即内存缓存以及磁盘缓存，以及时下流行的图片加载库也是用了双缓存，虽然他们对代码要不进行改动要不重写代码，但是原理类似，先推荐两篇关于DiskLruCache的使用以及分析文章：
 
 鸿洋的 [Android DiskLruCache 源码解析 硬盘缓存的绝佳方案][1]
 
@@ -41,7 +41,7 @@ excerpt_separator: "~~~"
             return cache;
 
 首先会判断日志文件存不存在，如果存在他会做三件事：
-1.cache.readJournal() 这个函数中使用readAsciiLine(in) 分别读取日志文件的头部的五个信息，并根据这五个信息去判断当前日志文件是否与当前app版本以及各个规格相符合，不符合会抛出异常。如果符合则会调用readJournalLine(readAsciiLine(in))去恢复lruEntries，虽然我们把要缓存的内容保存到磁盘中，但是在内存中我们仍然需要通过“一张表格”来快速查找我们需要的内存信息，lruEntries就只这张内存中“表格”。至于如何恢复lruEntries，我把注释加到了代码中：
+1.cache.readJournal() 这个函数中使用readAsciiLine(in)分别读取日志文件的头部的五个信息，并根据这五个信息去判断当前日志文件是否与当前app版本以及各个规格相符合，不符合会抛出异常。如果符合则会调用readJournalLine(readAsciiLine(in))去恢复lruEntries，虽然我们把要缓存的内容保存到磁盘中，但是在内存中我们仍然需要通过“一张表格”来快速查找我们需要的内存信息，lruEntries就只这张内存中“表格”。至于如何恢复lruEntries，我把注释加到了代码中：
 	
       private void readJournalLine(String line) throws IOException {
           String[] parts = line.split(" ");
