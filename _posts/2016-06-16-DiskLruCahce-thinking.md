@@ -76,9 +76,9 @@ excerpt_separator: "~~~"
 
 这样一张关于磁盘中缓存新的映射表就建立好了，我们实际的的读写操作都会直接或间接的操作它使其保持和缓存信息的一致。
 
-  2.cache.processJournal() 重新统计当前缓冲使用的空间size，每一个key值对应的Entry其中可能会保存多个缓存单元，比如图片，所以需要将所有缓存单元大小都加以计算，另外需要注意，这个函数还做了另外一个操作，在 cache.readJournal()并没有将记录属性为DIRTY的记录删除，而在这个步骤中，他会将entry.currentEditor ！= null 的DIRTY数据清除掉实际上删除缓存单元文件；
+2.cache.processJournal() 重新统计当前缓冲使用的空间size，每一个key值对应的Entry其中可能会保存多个缓存单元，比如图片，所以需要将所有缓存单元大小都加以计算，另外需要注意，这个函数还做了另外一个操作，在 cache.readJournal()并没有将记录属性为DIRTY的记录删除，而在这个步骤中，他会将entry.currentEditor ！= null 的DIRTY数据清除掉实际上删除缓存单元文件；
 
-  3.初始化cache.journalWriter，用于随时刷新日志文件。
+3.初始化cache.journalWriter，用于随时刷新日志文件。
 
 假如日志文件不存在，可能由于用户删除文件，第一次使用应用或是认为清除缓存等，这时候会重新恢复日志文件：首先创建日志临时文件，把头部信息呢写入，接着再根据我们的“表格”lruEntries，来恢复日志文件，当然刚开始lruEntries中什么都没有，并且lruEntries使用final修饰，所以这一步几乎不会做任何事，我思来想去既然这样部分代码没用为什么还要写呢，后来我想，如果我们在源码的的DiskLruCache基础上加以定制，我们不确保不会在初始化lruEntries时，不对其加入些缓存内容这样它也能自我恢复日志文件。不过在继续读代码我发现我错了，还有地方会用到rebuildJournal(). 最后将临时文件改名为日志文件。
 open函数使用了static 关键字修饰，所以我们也可以将其理解为工厂模式的一种是用。
