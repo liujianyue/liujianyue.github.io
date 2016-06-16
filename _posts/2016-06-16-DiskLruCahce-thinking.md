@@ -15,8 +15,8 @@ excerpt_separator: "~~~"
 
 ~~~ 网上关于DiskLruCache的源码解析也有，我不过我看了一下大多数都是使用讲解偏多，深入解析偏少，所以我决定来一最详细的。同样我们先从获取DiskLruCache实例入手：
 
-    public static DiskLruCache open(File directory, int appVersion, int valueCount, long maxSize) 
-
+   public static DiskLruCache open(File directory, int appVersion, int ,long maxSize) 
+    
 至于这四个参数，上两篇文章讲解的很清楚，我们主要看一下其内部流程：
 
         DiskLruCache cache = new DiskLruCache(directory, appVersion, valueCount, maxSize);
@@ -34,21 +34,17 @@ excerpt_separator: "~~~"
                 }
             }
 
-            // create a new empty cache
-            directory.mkdirs();
-            cache = new DiskLruCache(directory, appVersion, valueCount, maxSize);
-            cache.rebuildJournal();
-            return cache;
-
+      // create a new empty cache
+      directory.mkdirs();
+      cache = new DiskLruCache(directory, appVersion, valueCount, maxSize);
+      cache.rebuildJournal();
+      return cache;
+}
 
 首先会判断日志文件存不存在，如果存在他会做三件事：
+~~~
+1.cache.readJournal() 这个函数中使用readAsciiLine(in)分别读取日志文件的头部的五个信息，并根据这五个信息去判断当前日志文件是否与当前app版本以及各个规格相符合，不符合会抛出异常。如果符合则会调用readJournalLine(readAsciiLine(in))去恢复lruEntries，虽然我们把要缓存的内容保存到磁盘中，但是在内存中我们仍然需要通过“一张表格”来快速查找我们需要的内存信息，lruEntries就只这张内存中“表格”。至于如何恢复lruEntries，我把注释加到了代码中：
 
-1.cache.readJournal() 这个函数中使用readAsciiLine(in)分别读取日志文件的头部的五个信息，并根据这五个信息去判断当前日志文件是
-否与当前app版本以及各个规格相符合，不符合会抛出异常。如果符合则会调用readJournalLine(readAsciiLine(in))去恢复lruEntries，虽
-然我们把要缓存的内容保存到磁盘中，但是在内存中我们仍然需要通过“一张表格”来快速查找我们需要的内存信息，lruEntries就只这张内
-存中“表格”。至于如何恢复lruEntries，我把注释加到了代码中：
-
-	
       private void readJournalLine(String line) throws IOException {
           String[] parts = line.split(" ");
           if (parts.length < 2) {//每一行记录最少有两个字段，一个记录属性，一个key
@@ -79,7 +75,6 @@ excerpt_separator: "~~~"
               throw new IOException("unexpected journal line: " + line);
           }
       }
-
 这样一张关于磁盘中缓存新的映射表就建立好了，我们实际的的读写操作都会直接或间接的操作它使其保持和缓存信息的一致。
 
 2.cache.processJournal() 重新统计当前缓冲使用的空间size，每一个key值对应的Entry其中可能会保存多个缓存单元，比如图片，所以需要将所有缓存单元大小都加以计算，另外需要注意，这个函数还做了另外一个操作，在 cache.readJournal()并没有将记录属性为DIRTY的记录删除，而在这个步骤中，他会将entry.currentEditor ！= null 的DIRTY数据清除掉实际上删除缓存单元文件；
@@ -90,8 +85,6 @@ excerpt_separator: "~~~"
 open函数使用了static 关键字修饰，所以我们也可以将其理解为工厂模式的一种是用。
 
 写入缓存：
-
-	
 
         new Thread(new Runnable() {
         @Override
@@ -117,18 +110,18 @@ open函数使用了static 关键字修饰，所以我们也可以将其理解为
 
 读缓存：
 
-    try {
-	String imageUrl = "xxxxxxxxxxxxx";
-	String key = hashKeyForDisk(imageUrl);
-	DiskLruCache.Snapshot snapShot = mDiskLruCache.get(key);
-	if (snapShot != null) {
-		InputStream is = snapShot.getInputStream(0);
-		Bitmap bitmap = BitmapFactory.decodeStream(is);
-		mImage.setImageBitmap(bitmap);
-	}
-} catch (IOException e) {
-	e.printStackTrace();
-}
+        try {
+        String imageUrl = "xxxxxxxxxxxxx";
+        String key = hashKeyForDisk(imageUrl);
+        DiskLruCache.Snapshot snapShot = mDiskLruCache.get(key);
+        if (snapShot != null) {
+            InputStream is = snapShot.getInputStream(0);
+            Bitmap bitmap = BitmapFactory.decodeStream(is);
+            mImage.setImageBitmap(bitmap);
+        }
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
 
 上述写缓存与读缓存各用到了一个关键类：DiskLruCache.Editor、DiskLruCache.Snapshot，在讲解这两个类之前，有必要先说明一下Entry类：
 	
