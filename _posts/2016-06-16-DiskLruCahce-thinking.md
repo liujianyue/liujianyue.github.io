@@ -40,8 +40,14 @@ excerpt_separator: "~~~"
             cache.rebuildJournal();
             return cache;
 
+
 首先会判断日志文件存不存在，如果存在他会做三件事：
-1.cache.readJournal() 这个函数中使用readAsciiLine(in)分别读取日志文件的头部的五个信息，并根据这五个信息去判断当前日志文件是否与当前app版本以及各个规格相符合，不符合会抛出异常。如果符合则会调用readJournalLine(readAsciiLine(in))去恢复lruEntries，虽然我们把要缓存的内容保存到磁盘中，但是在内存中我们仍然需要通过“一张表格”来快速查找我们需要的内存信息，lruEntries就只这张内存中“表格”。至于如何恢复lruEntries，我把注释加到了代码中：
+
+1.cache.readJournal() 这个函数中使用readAsciiLine(in)分别读取日志文件的头部的五个信息，并根据这五个信息去判断当前日志文件是
+否与当前app版本以及各个规格相符合，不符合会抛出异常。如果符合则会调用readJournalLine(readAsciiLine(in))去恢复lruEntries，虽
+然我们把要缓存的内容保存到磁盘中，但是在内存中我们仍然需要通过“一张表格”来快速查找我们需要的内存信息，lruEntries就只这张内
+存中“表格”。至于如何恢复lruEntries，我把注释加到了代码中：
+
 	
       private void readJournalLine(String line) throws IOException {
           String[] parts = line.split(" ");
