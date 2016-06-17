@@ -4,12 +4,12 @@ title: JAVA 并发开发的一点总结(二)
 time: 2016年05月06日
 location: 北京
 pulished: true
-excerpt_separator: "线程池主要由"
+excerpt_separator: "~~~"
 ---
 ## 二， 线程池
 关于线程池，我之前在网上看了很多资料，感觉讲的浅显易懂的还是《Java Concurrency in Practice》一书，下面对书中的一些内容进行摘录和自我理解。从字面含义来看，线程池是指管理一组同构工作的线程的资源池。线程池与工作队列（Work Queue）密切相关，其中在工作队列中保存了所有等待执行的任务。工作者线程（WorkerThread）的任务很简单；从工作队列中获取一个任务，执行任务，然后返回线程池并等待先一个任务。
 
-之所以学习线程池，是因为它比“为每一个任务分配一个线程”具有巨大优势。通过重用现有的线程而不是创建新线程，可以在处理多个请求时分摊在线程创建和销毁的过程中产生的巨大开销。另外，当请求到达时，工作线程通常已经存在，因此不会犹豫等待创建线程而延迟任务的执行，从而提高响应性，同时还可以防止过多线程相互竞争资源而是应用程序耗尽内存或失败。线程池主要由java通过ThreadPoolExecutor扩展好的四类方式，所以首先学习ThreadPoolExecutor。
+之所以学习线程池，是因为它比“为每一个任务分配一个线程”具有巨大优势。通过重用现有的线程而不是创建新线程，可以在处理多个请求时分摊在线程创建和销毁的过程中产生的巨大开销。另外，当请求到达时，工作线程通常已经存在，因此不会犹豫等待创建线程而延迟任务的执行，从而提高响应性，同时还可以防止过多线程相互竞争资源而是应用程序耗尽内存或失败。线程池主要由java通过ThreadPoolExecutor扩展好的四类方式，所以首先学习ThreadPoolExecutor。~~~
 
 ### 1.ThreadPoolExecutor
 线程池类为 java.util.concurrent.ThreadPoolExecutor，常用构造方法为： 
@@ -259,7 +259,7 @@ shutdownNow() 关闭Executor，不再接受提交任务，并且不再执行入�
 
 感兴趣的同学也可以参考任玉刚《Android 开发艺术探索》关于这部分的讲解。后续可能还会接着写，完善这一部分。
 
-[下一篇：信号量、volatile关键字、CountDownLathch 的使用（Semaphore）](https://liujianyue.github.io/2016/05/06/ThreadPoolExecutor.html)
+[下一篇：信号量（Semaphore）](https://liujianyue.github.io/2016/05/06/ThreadPoolExecutor.html)
 
   [1]: http://ifeve.com/how-to-calculate-threadpool-size/
   [2]: http://coach.iteye.com/blog/855850
