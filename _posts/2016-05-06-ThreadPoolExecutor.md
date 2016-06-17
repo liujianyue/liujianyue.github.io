@@ -259,7 +259,7 @@ shutdownNow() 关闭Executor，不再接受提交任务，并且不再执行入�
 
 感兴趣的同学也可以参考任玉刚《Android 开发艺术探索》关于这部分的讲解。后续可能还会接着写，完善这一部分。
 
-[下一篇：信号量的使用（Semaphore）](https://liujianyue.github.io/2016/05/06/ThreadPoolExecutor.html)
+[下一篇：信号量、volatile关键字、CountDownLathch 的使用（Semaphore）](https://liujianyue.github.io/2016/05/06/ThreadPoolExecutor.html)
 
   [1]: http://ifeve.com/how-to-calculate-threadpool-size/
   [2]: http://coach.iteye.com/blog/855850
