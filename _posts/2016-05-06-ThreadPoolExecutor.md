@@ -1,6 +1,6 @@
 ---
 layout: post_layout
-title: ThreadPoolExecutor 线程池及其扩展
+title: JAVA 并发开发的一点总结(二)
 time: 2016年05月06日
 location: 北京
 pulished: true
