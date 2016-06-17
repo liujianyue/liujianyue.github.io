@@ -318,4 +318,4 @@ excerpt_separator: "~~~"
 其实在有些情况下二值信号量的的作用也可以用其他方法实现，比如说使用原子操作(Atomic)，以后会涉及到这里。
 在之前的开发中我也几乎很少用到信号量的有关知识点，不过在阅读Android源码以及一些大神的代码的时候也会遇到使用情况，所谓技多不压身，学习学习也很有必要。
     
-  [1]: /assets/img/easy-pure-blog.png
+  [1]: /assets/img/semphore-api.png
