@@ -1,13 +1,13 @@
 ---
 layout: post_layout
-title: IntentService源码详解
+title: IntentService 源码详解
 time: 2016年03月02日
 location: 北京
 pulished: true
-excerpt_separator: "Syntax"
+excerpt_separator: "~~~"
 ---
 
-本来想讲解AsyncTask和intenservice，HandlerThread的，不过真不敢说三者能说的面面俱到，所以还是先说一下Intenservice。看一下官方文档对IntentServie的解释：IntentService 是一个继承自Service，可以异步处理消息，用户通过startService(Intent) 来发送请求，服务会开启，并且其使用子线程去处理每一个Intent，并且执行完毕后会自动停止。换句话说，IntentService 提供了一种使用后台线程来处理操作的方式，它允许在不影响不阻塞UI线程的情况下去处理耗时操作。并且IntentService也不会受到大所属UI生命周期事件的影响，所以它适合在可能中断异步任务的情况中一直运行。
+本来想说一下AsyncTask和intenservice，HandlerThread的，不过真不敢说三者能说的面面俱到，所以还是先说一下Intenservice。看一下官方文档对IntentServie的解释：IntentService 是一个继承自Service，可以异步处理消息，用户通过startService(Intent) 来发送请求，服务会开启，并且其使用子线程去处理每一个Intent，并且执行完毕后会自动停止。换句话说，IntentService 提供了一种使用后台线程来处理操作的方式，它允许在不影响不阻塞UI线程的情况下去处理耗时操作。并且IntentService也不会受到大所属UI生命周期事件的影响，所以它适合在可能中断异步任务的情况中一直运行。
 IntentService 存在如下限制：
 
 ·它不能跟UI直接交互。为了把执行结果通知给UI，你需要把activity实例传给它，或者通过LocalBroadcastManager来发送广播；
@@ -16,7 +16,7 @@ IntentService 存在如下限制：
 
 ·运行在IntentSerive中的操作不能被人为打断。
 
-以上是关于IntentService的一些概念性问题，关于他的使用我相信大部分开发人员都使用过或是很轻松能够学会使用，那么我们就从源码的角度分析一下IntentService的实现原理。
+~~~ 以上是关于IntentService的一些概念性问题，关于他的使用我相信大部分开发人员都使用过或是很轻松能够学会使用，那么我们就从源码的角度分析一下IntentService的实现原理。
 
 我们定义一个继承自IntentService的类：
 
@@ -139,6 +139,7 @@ IntentService 存在如下限制：
         }
         return mLooper;
     }
+
 我们可以看到，getLooper方法中也持有了当前实例的锁，当执行run方法时，他已经执行到锁代码，并循环执行wait()，表明释放该对象锁，供run方法使用，所以当被通知notifyall时，它就又有机会执行while循环，一旦发现符合条件则跳出循环，返回looper，读到这我内心感叹一句--精妙精妙，太精妙！run方法和getLooper方法是典型并发同步的例子，可以学习一下。拿到looper后我们就可以在当前service中初始化handler了。那么handler是如何获取消息的呢？要获取消息那就要有地方发送消息，在哪？哈哈，在onstart 中，而onstart是被onstartCommond 在比较的新的api中替换掉的api，而在onstartCommond中也恰好调用到了onstart函数，看一下onstart，onstartCommond函数：
 
     @Override
@@ -163,7 +164,7 @@ IntentService 存在如下限制：
 
 每当我们试图去启动当前的intentservice的时候，都会执行onStartCommand，其中第三个参数startId表示当前是第几次启动该service。看onstart中使用mServiceHandler发送了消息，消息中对startID和intent进行了封装。如果你细心你还会发现在ServiceHandler的onHandleMessage该函数中还有一句stopSelf(msg.arg1)，这句话试图去关闭当前的service，为啥要关闭呢，因为intentservice的特点或者说优点就是执行完当前所有任务后即关闭service，省去人为关闭的麻烦，节省资源。onHandleIntent执行完之后就会调用stopSelf(msg.arg1)终止当前线程吗？也不一定，为什么这么说，因为stopSelf(msg.arg1)中参数ID是用来判断是否应该停止当前service，假如当前的ID和最后一次onStartCommond中id相同则会终止，否则的话说明仍然有消息没有处理完，如果使用stopSelf()，那不管有没有消息处理完，service都会被终止。那为什么说Intentservice是异步执行任务的呢？我们已经知道handler对消息的处理一步进行的，所以intentservice处理任务也是异步（messgequeue 排队机制），因为它使用了handler处理消息。
 
-之前讲`[如果还不清楚 Handler、Looper、Message 三者的关系，那 ^O^][2]`我们提到过，在子线程中如果不再使用handler，我们应该人为的去调用Looper.quit()，而在intentservice中也恰好说明这一点：
+之前讲[如果还不清楚 Handler、Looper、Message 三者的关系，那 ^O^][2]我们提到过，在子线程中如果不再使用handler，我们应该人为的去调用Looper.quit()，而在intentservice中也恰好说明这一点：
 
     @Override
     public void onDestroy() {
