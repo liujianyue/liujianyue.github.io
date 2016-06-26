@@ -12,8 +12,11 @@ workHistory:
   title: Android 开发工程师
   started: 2014.2
   duration: (2014.2 - 至今)
-  description: 
-
+  description:  1.Android Framework、package层功能开发和维护；
+                2. 优化原生ROM的性能，提升用户体验，部分时间维护优化国内ROM；
+                3. 研究和跟进Android版本升级；
+                4. 负责系统稳定性，解决各类系统问题，比如各类crash、重启、ANR等问题；
+                5.独立开发系统定制级应用；
 educationHistory:
 - education1:
   organization: 燕山大学
@@ -21,7 +24,7 @@ educationHistory:
   major: 信息安全
   started: 2010
   duration: (2010.9 - 2014.7)
-  description: 
+  description: 主修 C/C++，java，数据结构及算法，网络通信原理，计算机原理，汇编，病毒原理等
 languages:
 - language1:
   name: 中文
@@ -35,4 +38,10 @@ programmingSkills:
   percentage: 80%
 - CPP:
   name: C/C++
-  percentage: 20%
+  percentage: 50%
+- da:
+  name: DataStructure and Algorithm
+  percentage: 40%
+- MarkDown:
+  name: MarkDown
+  percentage: 50%
